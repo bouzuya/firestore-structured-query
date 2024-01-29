@@ -1,0 +1,15 @@
+[package]
+name = "firestore-structured-query"
+version = "0.0.0"
+edition = "2021"
+authors = ["bouzuya <m@bouzuya.net>"]
+description = "A Firestore StructuredQuery helper"
+exclude = [".github", "docs"]
+keywords = ["firestore", "gcloud", "google", "structured-query"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/bouzuya/firestore-structured-query"
+
+[dependencies]
+google-api-proto = { version = "1", features = ["google-firestore-v1"] }
+serde = { version = "1", features = ["derive"] }
+serde-firestore-value = "0.5.0"
