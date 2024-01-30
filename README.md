@@ -5,7 +5,7 @@ A Firestore StructuredQuery builder.
 [![ci](https://github.com/bouzuya/firestore-structured-query/workflows/ci/badge.svg)](https://github.com/bouzuya/firestore-structured-query/actions)
 [![crates.io](https://img.shields.io/crates/v/firestore-structured-query)](https://crates.io/crates/firestore-structured-query)
 [![docs.rs](https://img.shields.io/docsrs/firestore-structured-query)](https://docs.rs/firestore-structured-query)
-[![license](https://img.shields.io/crates/l/firestore-structured-query)](#license)
+![license](https://img.shields.io/crates/l/firestore-structured-query)
 
 ## Examples
 
