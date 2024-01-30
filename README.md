@@ -12,7 +12,9 @@ A Firestore StructuredQuery builder.
 ```rust
 #[test]
 fn test_simple_example() -> firestore_structured_query::Result<()> {
-    use firestore_structured_query::{FieldPath, FieldPathFilterExt as _, Filter};
+    use firestore_structured_query::{
+        FieldPath, FieldPathFilterExt as _, FieldPathOrderExt as _, Filter,
+    };
     use google_api_proto::google::firestore::v1::StructuredQuery;
 
     let _ = StructuredQuery {
@@ -37,7 +39,10 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
             ])
             .into(),
         ),
-        order_by: vec![],
+        order_by: vec![
+            FieldPath::raw("field1").ascending(),
+            FieldPath::raw("field2").descending(),
+        ],
         start_at: None,
         end_at: None,
         offset: 0_i32,
@@ -45,4 +50,5 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
     };
     Ok(())
 }
+
 ```
