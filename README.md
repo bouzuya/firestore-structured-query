@@ -15,7 +15,7 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
     use firestore_structured_query::{
         FieldPath, FieldPathFilterExt as _, FieldPathOrderExt as _, Filter, Query,
     };
-    use google_api_proto::google::firestore::v1::StructuredQuery;
+    use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
 
     let _ = StructuredQuery {
         select: None,
