@@ -3,6 +3,25 @@ use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery}
 pub struct Query(StructuredQuery);
 
 impl Query {
+    pub fn collection<S>(collection_id: S) -> Self
+    where
+        S: Into<String>,
+    {
+        Self(StructuredQuery {
+            select: None,
+            from: vec![structured_query::CollectionSelector {
+                collection_id: collection_id.into(),
+                all_descendants: false,
+            }],
+            r#where: None,
+            order_by: vec![],
+            start_at: None,
+            end_at: None,
+            offset: 0_i32,
+            limit: None,
+        })
+    }
+
     pub fn collection_group<S>(collection_id: S) -> Self
     where
         S: Into<String>,
