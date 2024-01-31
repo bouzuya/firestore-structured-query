@@ -1,6 +1,6 @@
 use crate::error::Result;
 use crate::field_path::FieldPath;
-use google_api_proto::google::firestore::v1::structured_query::{self, field_filter, FieldFilter};
+use google_api_proto::google::firestore::v1::structured_query::{self, field_filter, unary_filter};
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct Filter(structured_query::Filter);
@@ -66,6 +66,14 @@ pub trait FieldPathFilterExt {
     where
         T: serde::Serialize;
 
+    fn is_nan(&self) -> Result<Filter>;
+
+    fn is_not_nan(&self) -> Result<Filter>;
+
+    fn is_null(&self) -> Result<Filter>;
+
+    fn is_not_null(&self) -> Result<Filter>;
+
     fn less_than<T>(&self, value: &T) -> Result<Filter>
     where
         T: serde::Serialize;
@@ -126,6 +134,22 @@ impl FieldPathFilterExt for FieldPath {
         op(self, field_filter::Operator::In, value)
     }
 
+    fn is_nan(&self) -> Result<Filter> {
+        unary_op(self, unary_filter::Operator::IsNan)
+    }
+
+    fn is_not_nan(&self) -> Result<Filter> {
+        unary_op(self, unary_filter::Operator::IsNotNan)
+    }
+
+    fn is_not_null(&self) -> Result<Filter> {
+        unary_op(self, unary_filter::Operator::IsNotNull)
+    }
+
+    fn is_null(&self) -> Result<Filter> {
+        unary_op(self, unary_filter::Operator::IsNull)
+    }
+
     fn less_than<T>(&self, value: &T) -> Result<Filter>
     where
         T: serde::Serialize,
@@ -161,10 +185,23 @@ where
 {
     Ok(Filter(structured_query::Filter {
         filter_type: Some(structured_query::filter::FilterType::FieldFilter(
-            FieldFilter {
+            structured_query::FieldFilter {
                 field: Some(field_path.to_field_reference()),
                 op: op as i32,
                 value: Some(serde_firestore_value::to_value(value)?),
+            },
+        )),
+    }))
+}
+
+fn unary_op(field_path: &FieldPath, op: unary_filter::Operator) -> Result<Filter> {
+    Ok(Filter(structured_query::Filter {
+        filter_type: Some(structured_query::filter::FilterType::UnaryFilter(
+            structured_query::UnaryFilter {
+                op: op as i32,
+                operand_type: Some(unary_filter::OperandType::Field(
+                    field_path.to_field_reference(),
+                )),
             },
         )),
     }))
