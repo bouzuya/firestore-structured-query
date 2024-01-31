@@ -1,4 +1,19 @@
 #[test]
+fn test_impl_from_field_path_for_field_reference() -> firestore_structured_query::Result<()> {
+    // Added: impl From<FieldPath> for FieldReference
+    use firestore_structured_query::FieldPath;
+    use google_api_proto::google::firestore::v1::structured_query;
+    let field_path1 = FieldPath::raw("field1");
+    assert_eq!(
+        structured_query::FieldReference::from(field_path1),
+        structured_query::FieldReference {
+            field_path: "field1".to_string(),
+        }
+    );
+    Ok(())
+}
+
+#[test]
 fn test_query_collection() -> firestore_structured_query::Result<()> {
     // Added: Query::collection
     use firestore_structured_query::Query;

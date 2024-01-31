@@ -21,3 +21,9 @@ impl FieldPath {
         }
     }
 }
+
+impl std::convert::From<FieldPath> for structured_query::FieldReference {
+    fn from(field_path: FieldPath) -> Self {
+        field_path.to_field_reference()
+    }
+}
