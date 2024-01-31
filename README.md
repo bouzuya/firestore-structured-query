@@ -22,6 +22,7 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
         from: vec![],
         r#where: Some(
             Filter::and([
+                // field filters
                 FieldPath::raw("field1").less_than(&1)?,
                 FieldPath::raw("field2").less_than_or_equal(&2)?,
                 FieldPath::raw("field3").greater_than(&3)?,
@@ -32,6 +33,16 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
                 FieldPath::raw("field8").r#in(&[8])?,
                 FieldPath::raw("field9").array_contains_any(&[9])?,
                 FieldPath::raw("field10").not_in(&[10])?,
+                // unary filters
+                FieldPath::raw("field11").is_nan()?,
+                FieldPath::raw("field12").is_not_nan()?,
+                FieldPath::raw("field13").is_not_null()?,
+                FieldPath::raw("field14").is_null()?,
+                // composite filters
+                Filter::and([
+                    FieldPath::raw("f").equal(&"a")?,
+                    FieldPath::raw("f").equal(&"b")?,
+                ]),
                 Filter::or([
                     FieldPath::raw("f").equal(&"a")?,
                     FieldPath::raw("f").equal(&"b")?,
@@ -50,5 +61,4 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
     };
     Ok(())
 }
-
 ```
