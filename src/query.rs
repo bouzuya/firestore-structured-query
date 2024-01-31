@@ -41,6 +41,15 @@ impl Query {
         })
     }
 
+    pub fn order_by<I>(mut self, order_by: I) -> Self
+    where
+        I: IntoIterator,
+        I::Item: Into<structured_query::Order>,
+    {
+        self.0.order_by = order_by.into_iter().map(Into::into).collect();
+        self
+    }
+
     pub fn r#where<F>(mut self, filter: F) -> Self
     where
         F: Into<structured_query::Filter>,

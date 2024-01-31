@@ -1,5 +1,3 @@
-use google_api_proto::google::firestore::v1::structured_query::FieldReference;
-
 #[test]
 fn test_query_collection() -> firestore_structured_query::Result<()> {
     // Added: Query::collection
@@ -51,6 +49,68 @@ fn test_query_collection_group() -> firestore_structured_query::Result<()> {
 }
 
 #[test]
+fn test_query_order_by() -> firestore_structured_query::Result<()> {
+    // Added: Query::order_by
+    use firestore_structured_query::{FieldPath, FieldPathOrderExt, Query};
+    use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
+    let query1 = Query::collection_group("collection_id1").order_by([
+        FieldPath::raw("field1").ascending(),
+        FieldPath::raw("field2").descending(),
+    ]);
+    assert_eq!(
+        StructuredQuery::from(query1),
+        StructuredQuery {
+            select: None,
+            from: vec![structured_query::CollectionSelector {
+                collection_id: "collection_id1".to_string(),
+                all_descendants: true,
+            }],
+            r#where: None,
+            order_by: vec![
+                FieldPath::raw("field1").ascending(),
+                FieldPath::raw("field2").descending(),
+            ],
+            start_at: None,
+            end_at: None,
+            offset: 0_i32,
+            limit: None,
+        }
+    );
+    let order_by1 = vec![
+        structured_query::Order {
+            field: Some(structured_query::FieldReference {
+                field_path: "field1".to_string(),
+            }),
+            direction: structured_query::Direction::Ascending as i32,
+        },
+        structured_query::Order {
+            field: Some(structured_query::FieldReference {
+                field_path: "field2".to_string(),
+            }),
+            direction: structured_query::Direction::Descending as i32,
+        },
+    ];
+    let query2 = Query::collection_group("collection_id1").order_by(order_by1.clone());
+    assert_eq!(
+        StructuredQuery::from(query2),
+        StructuredQuery {
+            select: None,
+            from: vec![structured_query::CollectionSelector {
+                collection_id: "collection_id1".to_string(),
+                all_descendants: true,
+            }],
+            r#where: None,
+            order_by: order_by1,
+            start_at: None,
+            end_at: None,
+            offset: 0_i32,
+            limit: None,
+        }
+    );
+    Ok(())
+}
+
+#[test]
 fn test_query_where() -> firestore_structured_query::Result<()> {
     // Added: Query::r#where
     use firestore_structured_query::{FieldPath, FieldPathFilterExt, Query};
@@ -70,7 +130,7 @@ fn test_query_where() -> firestore_structured_query::Result<()> {
                     structured_query::UnaryFilter {
                         op: structured_query::unary_filter::Operator::IsNan as i32,
                         operand_type: Some(structured_query::unary_filter::OperandType::Field(
-                            FieldReference {
+                            structured_query::FieldReference {
                                 field_path: "field1".to_string(),
                             }
                         ))
@@ -89,7 +149,7 @@ fn test_query_where() -> firestore_structured_query::Result<()> {
             structured_query::UnaryFilter {
                 op: structured_query::unary_filter::Operator::IsNan as i32,
                 operand_type: Some(structured_query::unary_filter::OperandType::Field(
-                    FieldReference {
+                    structured_query::FieldReference {
                         field_path: "field1".to_string(),
                     },
                 )),
