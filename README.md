@@ -60,7 +60,7 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
         limit: None,
     };
 
-    let _ = StructuredQuery::from(Query::collection("collection_id1"));
+    let _ = StructuredQuery::from(Query::collection("collection_id1").r#where(FieldPath::raw("field1").less_than(&1)?));
     let _ = StructuredQuery::from(Query::collection_group("collection_id2"));
 
     Ok(())

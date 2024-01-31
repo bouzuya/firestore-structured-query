@@ -40,6 +40,14 @@ impl Query {
             limit: None,
         })
     }
+
+    pub fn r#where<F>(mut self, filter: F) -> Self
+    where
+        F: Into<structured_query::Filter>,
+    {
+        self.0.r#where = Some(filter.into());
+        self
+    }
 }
 
 impl std::convert::From<Query> for StructuredQuery {
