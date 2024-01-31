@@ -50,6 +50,17 @@ impl Query {
         self
     }
 
+    pub fn select<I>(mut self, fields: I) -> Self
+    where
+        I: IntoIterator,
+        I::Item: Into<structured_query::FieldReference>,
+    {
+        self.0.select = Some(structured_query::Projection {
+            fields: fields.into_iter().map(Into::into).collect(),
+        });
+        self
+    }
+
     pub fn r#where<F>(mut self, filter: F) -> Self
     where
         F: Into<structured_query::Filter>,

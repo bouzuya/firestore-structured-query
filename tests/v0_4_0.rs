@@ -126,6 +126,41 @@ fn test_query_order_by() -> firestore_structured_query::Result<()> {
 }
 
 #[test]
+fn test_query_select() -> firestore_structured_query::Result<()> {
+    // Added: Query::select
+    use firestore_structured_query::{FieldPath, Query};
+    use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
+    let query1 = Query::collection_group("collection_id1")
+        .select([FieldPath::raw("field1"), FieldPath::raw("field2")]);
+    assert_eq!(
+        StructuredQuery::from(query1),
+        StructuredQuery {
+            select: Some(structured_query::Projection {
+                fields: vec![
+                    structured_query::FieldReference {
+                        field_path: "field1".to_string(),
+                    },
+                    structured_query::FieldReference {
+                        field_path: "field2".to_string(),
+                    },
+                ],
+            }),
+            from: vec![structured_query::CollectionSelector {
+                collection_id: "collection_id1".to_string(),
+                all_descendants: true,
+            }],
+            r#where: None,
+            order_by: vec![],
+            start_at: None,
+            end_at: None,
+            offset: 0_i32,
+            limit: None,
+        }
+    );
+    Ok(())
+}
+
+#[test]
 fn test_query_where() -> firestore_structured_query::Result<()> {
     // Added: Query::r#where
     use firestore_structured_query::{FieldPath, FieldPathFilterExt, Query};

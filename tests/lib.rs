@@ -50,6 +50,7 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
 
     let _ = StructuredQuery::from(
         Query::collection("collection_id1")
+            .select([FieldPath::raw("field1"), FieldPath::raw("field2")])
             .r#where(FieldPath::raw("field1").less_than(&1)?)
             .order_by([
                 FieldPath::raw("field1").ascending(),
