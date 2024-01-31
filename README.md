@@ -13,7 +13,7 @@ A Firestore StructuredQuery builder.
 #[test]
 fn test_simple_example() -> firestore_structured_query::Result<()> {
     use firestore_structured_query::{
-        FieldPath, FieldPathFilterExt as _, FieldPathOrderExt as _, Filter,
+        FieldPath, FieldPathFilterExt as _, FieldPathOrderExt as _, Filter, Query,
     };
     use google_api_proto::google::firestore::v1::StructuredQuery;
 
@@ -59,6 +59,9 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
         offset: 0_i32,
         limit: None,
     };
+
+    let _ = StructuredQuery::from(Query::collection_group("collection_id1"));
+
     Ok(())
 }
 ```
