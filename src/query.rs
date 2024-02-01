@@ -63,6 +63,11 @@ impl Query {
         self
     }
 
+    pub fn offset(mut self, offset: i32) -> Self {
+        self.0.offset = offset;
+        self
+    }
+
     pub fn order_by<I>(mut self, order_by: I) -> Self
     where
         I: IntoIterator,

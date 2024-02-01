@@ -93,7 +93,8 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
                 Value {
                     value_type: Some(ValueType::IntegerValue(2)),
                 },
-            ]),
+            ])
+            .offset(1_i32),
     );
 
     Ok(())
