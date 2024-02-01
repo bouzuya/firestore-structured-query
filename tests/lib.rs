@@ -3,7 +3,9 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
     use firestore_structured_query::{
         FieldPath, FieldPathFilterExt as _, FieldPathOrderExt as _, Filter, Query,
     };
-    use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
+    use google_api_proto::google::firestore::v1::{
+        structured_query, value::ValueType, StructuredQuery, Value,
+    };
 
     let _ = StructuredQuery {
         select: Some(structured_query::Projection {
@@ -60,6 +62,14 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
             .order_by([
                 FieldPath::raw("field1").ascending(),
                 FieldPath::raw("field2").descending(),
+            ])
+            .start_at([
+                Value {
+                    value_type: Some(ValueType::IntegerValue(1)),
+                },
+                Value {
+                    value_type: Some(ValueType::IntegerValue(2)),
+                },
             ]),
     );
     let _ = StructuredQuery::from(Query::collection_group("collection_id2"));

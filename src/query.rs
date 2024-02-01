@@ -1,4 +1,4 @@
-use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
+use google_api_proto::google::firestore::v1::{structured_query, Cursor, StructuredQuery};
 
 pub struct Query(StructuredQuery);
 
@@ -57,6 +57,17 @@ impl Query {
     {
         self.0.select = Some(structured_query::Projection {
             fields: fields.into_iter().map(Into::into).collect(),
+        });
+        self
+    }
+
+    pub fn start_at<I>(mut self, values: I) -> Self
+    where
+        I: IntoIterator<Item = google_api_proto::google::firestore::v1::Value>,
+    {
+        self.0.start_at = Some(Cursor {
+            values: values.into_iter().collect(),
+            before: true,
         });
         self
     }

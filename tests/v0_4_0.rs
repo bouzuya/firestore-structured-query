@@ -161,6 +161,50 @@ fn test_query_select() -> firestore_structured_query::Result<()> {
 }
 
 #[test]
+fn test_query_start_at() -> firestore_structured_query::Result<()> {
+    // Added: Query::start_at
+    use firestore_structured_query::Query;
+    use google_api_proto::google::firestore::v1::{
+        structured_query, value::ValueType, Cursor, StructuredQuery, Value,
+    };
+    let query1 = Query::collection_group("collection_id1").start_at([
+        Value {
+            value_type: Some(ValueType::IntegerValue(1)),
+        },
+        Value {
+            value_type: Some(ValueType::IntegerValue(2)),
+        },
+    ]);
+    assert_eq!(
+        StructuredQuery::from(query1),
+        StructuredQuery {
+            select: None,
+            from: vec![structured_query::CollectionSelector {
+                collection_id: "collection_id1".to_string(),
+                all_descendants: true,
+            }],
+            r#where: None,
+            order_by: vec![],
+            start_at: Some(Cursor {
+                values: vec![
+                    Value {
+                        value_type: Some(ValueType::IntegerValue(1)),
+                    },
+                    Value {
+                        value_type: Some(ValueType::IntegerValue(2)),
+                    },
+                ],
+                before: true,
+            }),
+            end_at: None,
+            offset: 0_i32,
+            limit: None,
+        }
+    );
+    Ok(())
+}
+
+#[test]
 fn test_query_where() -> firestore_structured_query::Result<()> {
     // Added: Query::r#where
     use firestore_structured_query::{FieldPath, FieldPathFilterExt, Query};
