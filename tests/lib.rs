@@ -56,6 +56,7 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
     };
 
     let _ = StructuredQuery::from(
+        // or Query::collection_group(...)
         Query::collection("collection_id1")
             .select([FieldPath::raw("field1"), FieldPath::raw("field2")])
             .r#where(FieldPath::raw("field1").less_than(&1)?)
@@ -63,6 +64,7 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
                 FieldPath::raw("field1").ascending(),
                 FieldPath::raw("field2").descending(),
             ])
+            // .start_after(...)
             .start_at([
                 Value {
                     value_type: Some(ValueType::IntegerValue(1)),
@@ -72,7 +74,6 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
                 },
             ]),
     );
-    let _ = StructuredQuery::from(Query::collection_group("collection_id2"));
 
     Ok(())
 }

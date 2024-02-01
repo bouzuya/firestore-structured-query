@@ -61,6 +61,17 @@ impl Query {
         self
     }
 
+    pub fn start_after<I>(mut self, values: I) -> Self
+    where
+        I: IntoIterator<Item = google_api_proto::google::firestore::v1::Value>,
+    {
+        self.0.start_at = Some(Cursor {
+            values: values.into_iter().collect(),
+            before: false,
+        });
+        self
+    }
+
     pub fn start_at<I>(mut self, values: I) -> Self
     where
         I: IntoIterator<Item = google_api_proto::google::firestore::v1::Value>,
