@@ -387,6 +387,20 @@ fn test_query_start_at() -> firestore_structured_query::Result<()> {
 }
 
 #[test]
+fn test_to_value() -> firestore_structured_query::Result<()> {
+    // Added: ::to_value
+    use firestore_structured_query::to_value;
+    use google_api_proto::google::firestore::v1::{value::ValueType, Value};
+    assert_eq!(
+        to_value(&1_i64)?,
+        Value {
+            value_type: Some(ValueType::IntegerValue(1_i64)),
+        }
+    );
+    Ok(())
+}
+
+#[test]
 fn test_query_where() -> firestore_structured_query::Result<()> {
     // Added: Query::r#where
     use firestore_structured_query::{FieldPath, FieldPathFilterExt, Query};

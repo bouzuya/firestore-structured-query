@@ -1,5 +1,7 @@
 use crate::error::Result;
 use crate::field_path::FieldPath;
+use crate::to_value;
+
 use google_api_proto::google::firestore::v1::structured_query::{self, field_filter, unary_filter};
 
 #[derive(Clone, Debug, PartialEq)]
@@ -188,7 +190,7 @@ where
             structured_query::FieldFilter {
                 field: Some(field_path.to_field_reference()),
                 op: op as i32,
-                value: Some(serde_firestore_value::to_value(value)?),
+                value: Some(to_value(value)?),
             },
         )),
     }))

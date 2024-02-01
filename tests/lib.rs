@@ -1,7 +1,7 @@
 #[test]
 fn test_full_example() -> firestore_structured_query::Result<()> {
     use firestore_structured_query::{
-        FieldPath, FieldPathFilterExt as _, FieldPathOrderExt as _, Filter, Query,
+        to_value, FieldPath, FieldPathFilterExt as _, FieldPathOrderExt as _, Filter, Query,
     };
     use google_api_proto::google::firestore::v1::{
         structured_query, value::ValueType, ArrayValue, Cursor, StructuredQuery, Value,
@@ -45,21 +45,13 @@ fn test_full_example() -> firestore_structured_query::Result<()> {
                 ])
                 // .start_after(...)
                 .start_at([
-                    Value {
-                        value_type: Some(ValueType::IntegerValue(1)),
-                    },
-                    Value {
-                        value_type: Some(ValueType::IntegerValue(2)),
-                    },
+                    to_value(&1)?,
+                    to_value(&2)?
                 ])
                 // .end_before(...)
                 .end_at([
-                    Value {
-                        value_type: Some(ValueType::IntegerValue(1)),
-                    },
-                    Value {
-                        value_type: Some(ValueType::IntegerValue(2)),
-                    },
+                    to_value(&1)?,
+                    to_value(&2)?,
                 ])
                 .offset(1_i32)
                 .limit(2_i32),
