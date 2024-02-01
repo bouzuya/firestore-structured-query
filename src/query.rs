@@ -63,6 +63,11 @@ impl Query {
         self
     }
 
+    pub fn limit(mut self, limit: i32) -> Self {
+        self.0.limit = Some(limit);
+        self
+    }
+
     pub fn offset(mut self, offset: i32) -> Self {
         self.0.offset = offset;
         self
