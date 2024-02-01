@@ -41,6 +41,17 @@ impl Query {
         })
     }
 
+    pub fn end_before<I>(mut self, values: I) -> Self
+    where
+        I: IntoIterator<Item = google_api_proto::google::firestore::v1::Value>,
+    {
+        self.0.end_at = Some(Cursor {
+            values: values.into_iter().collect(),
+            before: true,
+        });
+        self
+    }
+
     pub fn order_by<I>(mut self, order_by: I) -> Self
     where
         I: IntoIterator,
