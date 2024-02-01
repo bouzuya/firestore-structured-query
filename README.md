@@ -85,7 +85,8 @@ fn test_simple_example() -> firestore_structured_query::Result<()> {
                     value_type: Some(ValueType::IntegerValue(2)),
                 },
             ])
-            .end_before([
+            // .end_before(...)
+            .end_at([
                 Value {
                     value_type: Some(ValueType::IntegerValue(1)),
                 },
