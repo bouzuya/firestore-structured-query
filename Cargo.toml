@@ -13,3 +13,4 @@ repository = "https://github.com/bouzuya/firestore-structured-query"
 google-api-proto = { version = "1", features = ["google-firestore-v1"] }
 serde = { version = "1", features = ["derive"] }
 serde-firestore-value = "0.5.0"
+thiserror = "1"
