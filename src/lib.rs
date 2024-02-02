@@ -5,7 +5,7 @@ mod order;
 mod query;
 mod value;
 
-pub use self::error::Result;
+pub use self::error::{Error, Result};
 pub use self::field_path::FieldPath;
 pub use self::filter::{FieldPathFilterExt, Filter};
 pub use self::order::FieldPathOrderExt;
