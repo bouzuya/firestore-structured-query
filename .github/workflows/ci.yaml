@@ -19,7 +19,7 @@ jobs:
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
       - run: cargo fmt -- --check
-      - run: cargo fmt -- --check --all-feature
+      - run: cargo fmt -- --check --all-features
       - run: cargo clippy -- --deny warnings
       - run: cargo clippy -- --deny warnings --all-features
       - run: cargo test
