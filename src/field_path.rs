@@ -1,7 +1,7 @@
 use google_api_proto::google::firestore::v1::structured_query::{self, field_filter, unary_filter};
 
 use crate::error::Result;
-use crate::{Filter, Order};
+use crate::{Filter, IntoValue, Order};
 
 /// A Firestore Field Path.
 ///
@@ -50,16 +50,16 @@ impl FieldPath {
 
 // for Filter
 impl FieldPath {
-    pub fn array_contains<T>(&self, value: &T) -> Result<Filter>
+    pub fn array_contains<T>(&self, value: T) -> Result<Filter>
     where
-        T: serde::Serialize,
+        T: IntoValue,
     {
         Filter::field(self.clone(), field_filter::Operator::ArrayContains, value)
     }
 
-    pub fn array_contains_any<T>(&self, value: &T) -> Result<Filter>
+    pub fn array_contains_any<T>(&self, value: T) -> Result<Filter>
     where
-        T: serde::Serialize,
+        T: IntoValue,
     {
         Filter::field(
             self.clone(),
@@ -68,23 +68,23 @@ impl FieldPath {
         )
     }
 
-    pub fn equal<T>(&self, value: &T) -> Result<Filter>
+    pub fn equal<T>(&self, value: T) -> Result<Filter>
     where
-        T: serde::Serialize,
+        T: IntoValue,
     {
         Filter::field(self.clone(), field_filter::Operator::Equal, value)
     }
 
-    pub fn greater_than<T>(&self, value: &T) -> Result<Filter>
+    pub fn greater_than<T>(&self, value: T) -> Result<Filter>
     where
-        T: serde::Serialize,
+        T: IntoValue,
     {
         Filter::field(self.clone(), field_filter::Operator::GreaterThan, value)
     }
 
-    pub fn greater_than_or_equal<T>(&self, value: &T) -> Result<Filter>
+    pub fn greater_than_or_equal<T>(&self, value: T) -> Result<Filter>
     where
-        T: serde::Serialize,
+        T: IntoValue,
     {
         Filter::field(
             self.clone(),
@@ -93,9 +93,9 @@ impl FieldPath {
         )
     }
 
-    pub fn r#in<T>(&self, value: &T) -> Result<Filter>
+    pub fn r#in<T>(&self, value: T) -> Result<Filter>
     where
-        T: serde::Serialize,
+        T: IntoValue,
     {
         Filter::field(self.clone(), field_filter::Operator::In, value)
     }
@@ -116,30 +116,30 @@ impl FieldPath {
         Filter::unary(self.clone(), unary_filter::Operator::IsNull)
     }
 
-    pub fn less_than<T>(&self, value: &T) -> Result<Filter>
+    pub fn less_than<T>(&self, value: T) -> Result<Filter>
     where
-        T: serde::Serialize,
+        T: IntoValue,
     {
         Filter::field(self.clone(), field_filter::Operator::LessThan, value)
     }
 
-    pub fn less_than_or_equal<T>(&self, value: &T) -> Result<Filter>
+    pub fn less_than_or_equal<T>(&self, value: T) -> Result<Filter>
     where
-        T: serde::Serialize,
+        T: IntoValue,
     {
         Filter::field(self.clone(), field_filter::Operator::LessThanOrEqual, value)
     }
 
-    pub fn not_equal<T>(&self, value: &T) -> Result<Filter>
+    pub fn not_equal<T>(&self, value: T) -> Result<Filter>
     where
-        T: serde::Serialize,
+        T: IntoValue,
     {
         Filter::field(self.clone(), field_filter::Operator::NotEqual, value)
     }
 
-    pub fn not_in<T>(&self, value: &T) -> Result<Filter>
+    pub fn not_in<T>(&self, value: T) -> Result<Filter>
     where
-        T: serde::Serialize,
+        T: IntoValue,
     {
         Filter::field(self.clone(), field_filter::Operator::NotIn, value)
     }

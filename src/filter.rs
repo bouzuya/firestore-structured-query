@@ -1,6 +1,5 @@
-use crate::error::Result;
 use crate::field_path::FieldPath;
-use crate::to_value;
+use crate::{error::Result, IntoValue};
 
 use google_api_proto::google::firestore::v1::structured_query::{self, field_filter, unary_filter};
 
@@ -47,17 +46,17 @@ impl Filter {
     pub(crate) fn field<T>(
         field_path: FieldPath,
         op: field_filter::Operator,
-        value: &T,
+        value: T,
     ) -> Result<Filter>
     where
-        T: serde::Serialize,
+        T: IntoValue,
     {
         Ok(Filter(structured_query::Filter {
             filter_type: Some(structured_query::filter::FilterType::FieldFilter(
                 structured_query::FieldFilter {
                     field: Some(structured_query::FieldReference::from(field_path)),
                     op: op as i32,
-                    value: Some(to_value(value)?),
+                    value: Some(value.into_value()?),
                 },
             )),
         }))
