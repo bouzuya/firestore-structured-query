@@ -1,6 +1,42 @@
 use google_api_proto::google::firestore::v1::structured_query;
 
 #[test]
+fn test_error() -> firestore_structured_query::Result<()> {
+    // Added: Error
+    use firestore_structured_query::{Error, FieldPath, IntoValue, Result};
+    use google_api_proto::google::firestore::v1::Value;
+    fn assert_impl<T: std::error::Error + Send + Sync>(_: T) {}
+    struct S;
+    impl IntoValue for S {
+        fn into_value(self) -> Result<Value> {
+            Err(Error::Custom(Box::new(std::io::Error::new(
+                std::io::ErrorKind::Other,
+                "S is not supported",
+            ))))
+        }
+    }
+    let e: Error = FieldPath::raw("field1").equal(S).unwrap_err();
+    assert_impl(e);
+    Ok(())
+}
+
+#[cfg(feature = "serde")]
+#[test]
+fn test_error_to_value_variant() -> firestore_structured_query::Result<()> {
+    // Added: Error::ToValue when the `serde` feature is enabled.
+    use firestore_structured_query::{to_value, Error};
+    match to_value(&1_u64).unwrap_err() {
+        Error::Custom(_) => {
+            unreachable!();
+        }
+        Error::ToValue(e) => {
+            assert_eq!(e.to_string(), "u64 is not supported");
+        }
+    }
+    Ok(())
+}
+
+#[test]
 fn test_field_path_array_contains() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::array_contains
     use firestore_structured_query::{FieldPath, IntoValue, Result};
@@ -35,6 +71,7 @@ fn test_field_path_array_contains() -> firestore_structured_query::Result<()> {
     Ok(())
 }
 
+#[cfg(feature = "serde")]
 #[test]
 fn test_field_path_array_contains_serialize() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::array_contains (for T: Serialize)
@@ -113,6 +150,7 @@ fn test_field_path_array_contains_any() -> firestore_structured_query::Result<()
     Ok(())
 }
 
+#[cfg(feature = "serde")]
 #[test]
 fn test_field_path_array_contains_any_serialize() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::array_contains_any (for T: Serialize)
@@ -215,6 +253,7 @@ fn test_field_path_equal() -> firestore_structured_query::Result<()> {
     Ok(())
 }
 
+#[cfg(feature = "serde")]
 #[test]
 fn test_field_path_equal_serialize() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::equal (for T: Serialize)
@@ -275,6 +314,7 @@ fn test_field_path_greater_than() -> firestore_structured_query::Result<()> {
     Ok(())
 }
 
+#[cfg(feature = "serde")]
 #[test]
 fn test_field_path_greater_than_serialize() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::greater_than (for T: Serialize)
@@ -335,6 +375,7 @@ fn test_field_path_greater_than_or_equal() -> firestore_structured_query::Result
     Ok(())
 }
 
+#[cfg(feature = "serde")]
 #[test]
 fn test_field_path_greater_than_or_equal_serialize() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::greater_than_or_equal (for T: Serialize)
@@ -413,6 +454,7 @@ fn test_field_path_in() -> firestore_structured_query::Result<()> {
     Ok(())
 }
 
+#[cfg(feature = "serde")]
 #[test]
 fn test_field_path_in_serialize() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::r#in (for T: Serialize)
@@ -575,6 +617,7 @@ fn test_field_path_less_than() -> firestore_structured_query::Result<()> {
     Ok(())
 }
 
+#[cfg(feature = "serde")]
 #[test]
 fn test_field_path_less_than_serialize() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::less_than (for T: Serialize)
@@ -635,6 +678,7 @@ fn test_field_path_less_than_or_equal() -> firestore_structured_query::Result<()
     Ok(())
 }
 
+#[cfg(feature = "serde")]
 #[test]
 fn test_field_path_less_than_or_equal_serialize() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::less_than_or_equal (for T: Serialize)
@@ -695,6 +739,7 @@ fn test_field_path_not_equal() -> firestore_structured_query::Result<()> {
     Ok(())
 }
 
+#[cfg(feature = "serde")]
 #[test]
 fn test_field_path_not_equal_serialize() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::not_equal (for T: Serialize)
@@ -773,6 +818,7 @@ fn test_field_path_not_in() -> firestore_structured_query::Result<()> {
     Ok(())
 }
 
+#[cfg(feature = "serde")]
 #[test]
 fn test_field_path_not_in_serialize() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::not_in (for T: Serialize)
@@ -860,6 +906,21 @@ fn test_order() -> firestore_structured_query::Result<()> {
                 field_path: "field1".to_string()
             }),
             direction: structured_query::Direction::Descending as i32
+        }
+    );
+    Ok(())
+}
+
+#[cfg(feature = "serde")]
+#[test]
+fn test_to_value() -> firestore_structured_query::Result<()> {
+    // Added: ::to_value
+    use firestore_structured_query::to_value;
+    use google_api_proto::google::firestore::v1::{value::ValueType, Value};
+    assert_eq!(
+        to_value(&1_i64)?,
+        Value {
+            value_type: Some(ValueType::IntegerValue(1_i64)),
         }
     );
     Ok(())

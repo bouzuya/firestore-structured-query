@@ -289,9 +289,13 @@ fn test_field_path_raw() {
 fn test_filter_and() -> firestore_structured_query::Result<()> {
     // Added: Filter::and
     use firestore_structured_query::{FieldPath, Filter};
-    use google_api_proto::google::firestore::v1::structured_query;
-    let filter1 = FieldPath::raw("field1").less_than(&1)?;
-    let filter2 = FieldPath::raw("field2").less_than_or_equal(&2)?;
+    use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+    let filter1 = FieldPath::raw("field1").less_than(Value {
+        value_type: Some(ValueType::IntegerValue(1)),
+    })?;
+    let filter2 = FieldPath::raw("field2").less_than_or_equal(Value {
+        value_type: Some(ValueType::IntegerValue(2)),
+    })?;
     let filter3 = Filter::and([filter1.clone(), filter2.clone()]);
     assert_eq!(
         structured_query::Filter::from(filter3),
@@ -314,9 +318,13 @@ fn test_filter_and() -> firestore_structured_query::Result<()> {
 fn test_filter_or() -> firestore_structured_query::Result<()> {
     // Added: Filter::or
     use firestore_structured_query::{FieldPath, Filter};
-    use google_api_proto::google::firestore::v1::structured_query;
-    let filter1 = FieldPath::raw("field1").less_than(&1)?;
-    let filter2 = FieldPath::raw("field2").less_than_or_equal(&2)?;
+    use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+    let filter1 = FieldPath::raw("field1").less_than(Value {
+        value_type: Some(ValueType::IntegerValue(1)),
+    })?;
+    let filter2 = FieldPath::raw("field2").less_than_or_equal(Value {
+        value_type: Some(ValueType::IntegerValue(2)),
+    })?;
     let filter3 = Filter::or([filter1.clone(), filter2.clone()]);
     assert_eq!(
         structured_query::Filter::from(filter3),
@@ -340,7 +348,9 @@ fn test_impl_from_filter_for_structured_query_filter() -> firestore_structured_q
     // Added: impl From<Filter> for structured_query::Filter
     use firestore_structured_query::FieldPath;
     use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
-    let filter1 = structured_query::Filter::from(FieldPath::raw("field1").less_than(&1)?);
+    let filter1 = structured_query::Filter::from(FieldPath::raw("field1").less_than(Value {
+        value_type: Some(ValueType::IntegerValue(1)),
+    })?);
     assert_eq!(
         filter1,
         structured_query::Filter {

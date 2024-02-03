@@ -1,5 +1,6 @@
 use crate::Result;
 
+#[cfg(feature = "serde")]
 pub fn to_value<T>(v: &T) -> Result<google_api_proto::google::firestore::v1::Value>
 where
     T: serde::Serialize,
@@ -17,6 +18,7 @@ impl IntoValue for google_api_proto::google::firestore::v1::Value {
     }
 }
 
+#[cfg(feature = "serde")]
 impl<T: serde::Serialize> IntoValue for &T {
     fn into_value(self) -> Result<google_api_proto::google::firestore::v1::Value> {
         Ok(serde_firestore_value::to_value(self)?)
