@@ -9,16 +9,17 @@ pub trait FieldPathOrderExt {
 
 impl FieldPathOrderExt for FieldPath {
     fn ascending(&self) -> structured_query::Order {
-        structured_query::Order {
-            field: Some(self.to_field_reference()),
-            direction: structured_query::Direction::Ascending as i32,
-        }
+        order(self.clone(), structured_query::Direction::Ascending)
     }
 
     fn descending(&self) -> structured_query::Order {
-        structured_query::Order {
-            field: Some(self.to_field_reference()),
-            direction: structured_query::Direction::Descending as i32,
-        }
+        order(self.clone(), structured_query::Direction::Descending)
+    }
+}
+
+fn order(field_path: FieldPath, direction: structured_query::Direction) -> structured_query::Order {
+    structured_query::Order {
+        field: Some(structured_query::FieldReference::from(field_path)),
+        direction: direction as i32,
     }
 }
