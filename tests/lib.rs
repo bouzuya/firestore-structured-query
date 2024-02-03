@@ -1,6 +1,6 @@
 #[test]
 fn test_full_example() -> firestore_structured_query::Result<()> {
-    use firestore_structured_query::{to_value, FieldPath, FieldPathOrderExt as _, Filter, Query};
+    use firestore_structured_query::{to_value, FieldPath, Filter, Query};
     use google_api_proto::google::firestore::v1::{
         structured_query, value::ValueType, ArrayValue, Cursor, StructuredQuery, Value,
     };

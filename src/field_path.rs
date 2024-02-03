@@ -1,7 +1,7 @@
 use google_api_proto::google::firestore::v1::structured_query::{self, field_filter, unary_filter};
 
 use crate::error::Result;
-use crate::Filter;
+use crate::{order::order, Filter};
 
 /// A Firestore Field Path.
 ///
@@ -142,6 +142,17 @@ impl FieldPath {
         T: serde::Serialize,
     {
         Filter::field(self.clone(), field_filter::Operator::NotIn, value)
+    }
+}
+
+// for Order
+impl FieldPath {
+    pub fn ascending(&self) -> structured_query::Order {
+        order(self.clone(), structured_query::Direction::Ascending)
+    }
+
+    pub fn descending(&self) -> structured_query::Order {
+        order(self.clone(), structured_query::Direction::Descending)
     }
 }
 

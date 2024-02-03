@@ -204,7 +204,7 @@ fn test_query_offset() -> firestore_structured_query::Result<()> {
 #[test]
 fn test_query_order_by() -> firestore_structured_query::Result<()> {
     // Added: Query::order_by
-    use firestore_structured_query::{FieldPath, FieldPathOrderExt, Query};
+    use firestore_structured_query::{FieldPath, Query};
     use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
     let query1 = Query::collection_group("collection_id1").order_by([
         FieldPath::raw("field1").ascending(),

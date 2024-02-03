@@ -55,6 +55,40 @@ fn test_field_path_array_contains_any() -> firestore_structured_query::Result<()
 }
 
 #[test]
+fn test_field_path_ascending() -> firestore_structured_query::Result<()> {
+    // Added: FieldPath::ascending
+    use firestore_structured_query::FieldPath;
+    use google_api_proto::google::firestore::v1::structured_query;
+    assert_eq!(
+        FieldPath::raw("field1").ascending(),
+        structured_query::Order {
+            field: Some(structured_query::FieldReference {
+                field_path: "field1".to_string()
+            }),
+            direction: structured_query::Direction::Ascending as i32
+        }
+    );
+    Ok(())
+}
+
+#[test]
+fn test_field_path_descending() -> firestore_structured_query::Result<()> {
+    // Added: FieldPath::descending
+    use firestore_structured_query::FieldPath;
+    use google_api_proto::google::firestore::v1::structured_query;
+    assert_eq!(
+        FieldPath::raw("field1").descending(),
+        structured_query::Order {
+            field: Some(structured_query::FieldReference {
+                field_path: "field1".to_string()
+            }),
+            direction: structured_query::Direction::Descending as i32
+        }
+    );
+    Ok(())
+}
+
+#[test]
 fn test_field_path_equal() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::equal
     use firestore_structured_query::FieldPath;
