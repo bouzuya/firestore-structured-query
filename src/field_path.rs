@@ -1,4 +1,7 @@
-use google_api_proto::google::firestore::v1::structured_query;
+use google_api_proto::google::firestore::v1::structured_query::{self, field_filter, unary_filter};
+
+use crate::error::Result;
+use crate::Filter;
 
 /// A Firestore Field Path.
 ///
@@ -42,6 +45,103 @@ impl FieldPath {
         Self {
             field_names: vec![field_path.into()],
         }
+    }
+}
+
+// for Filter
+impl FieldPath {
+    pub fn array_contains<T>(&self, value: &T) -> Result<Filter>
+    where
+        T: serde::Serialize,
+    {
+        Filter::field(self.clone(), field_filter::Operator::ArrayContains, value)
+    }
+
+    pub fn array_contains_any<T>(&self, value: &T) -> Result<Filter>
+    where
+        T: serde::Serialize,
+    {
+        Filter::field(
+            self.clone(),
+            field_filter::Operator::ArrayContainsAny,
+            value,
+        )
+    }
+
+    pub fn equal<T>(&self, value: &T) -> Result<Filter>
+    where
+        T: serde::Serialize,
+    {
+        Filter::field(self.clone(), field_filter::Operator::Equal, value)
+    }
+
+    pub fn greater_than<T>(&self, value: &T) -> Result<Filter>
+    where
+        T: serde::Serialize,
+    {
+        Filter::field(self.clone(), field_filter::Operator::GreaterThan, value)
+    }
+
+    pub fn greater_than_or_equal<T>(&self, value: &T) -> Result<Filter>
+    where
+        T: serde::Serialize,
+    {
+        Filter::field(
+            self.clone(),
+            field_filter::Operator::GreaterThanOrEqual,
+            value,
+        )
+    }
+
+    pub fn r#in<T>(&self, value: &T) -> Result<Filter>
+    where
+        T: serde::Serialize,
+    {
+        Filter::field(self.clone(), field_filter::Operator::In, value)
+    }
+
+    pub fn is_nan(&self) -> Result<Filter> {
+        Filter::unary(self.clone(), unary_filter::Operator::IsNan)
+    }
+
+    pub fn is_not_nan(&self) -> Result<Filter> {
+        Filter::unary(self.clone(), unary_filter::Operator::IsNotNan)
+    }
+
+    pub fn is_not_null(&self) -> Result<Filter> {
+        Filter::unary(self.clone(), unary_filter::Operator::IsNotNull)
+    }
+
+    pub fn is_null(&self) -> Result<Filter> {
+        Filter::unary(self.clone(), unary_filter::Operator::IsNull)
+    }
+
+    pub fn less_than<T>(&self, value: &T) -> Result<Filter>
+    where
+        T: serde::Serialize,
+    {
+        Filter::field(self.clone(), field_filter::Operator::LessThan, value)
+    }
+
+    pub fn less_than_or_equal<T>(&self, value: &T) -> Result<Filter>
+    where
+        T: serde::Serialize,
+    {
+        Filter::field(self.clone(), field_filter::Operator::LessThanOrEqual, value)
+    }
+
+    pub fn not_equal<T>(&self, value: &T) -> Result<Filter>
+    where
+        T: serde::Serialize,
+    {
+        Filter::field(self.clone(), field_filter::Operator::NotEqual, value)
+    }
+
+    pub fn not_in<T>(&self, value: &T) -> Result<Filter>
+    where
+        T: serde::Serialize,
+    {
+        Filter::field(self.clone(), field_filter::Operator::NotIn, value)
     }
 }
 

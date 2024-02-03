@@ -43,176 +43,36 @@ impl From<Filter> for structured_query::Filter {
     }
 }
 
-pub trait FieldPathFilterExt {
-    fn array_contains<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize;
-
-    fn array_contains_any<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize;
-
-    fn equal<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize;
-
-    fn greater_than<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize;
-
-    fn greater_than_or_equal<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize;
-
-    fn r#in<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize;
-
-    fn is_nan(&self) -> Result<Filter>;
-
-    fn is_not_nan(&self) -> Result<Filter>;
-
-    fn is_null(&self) -> Result<Filter>;
-
-    fn is_not_null(&self) -> Result<Filter>;
-
-    fn less_than<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize;
-
-    fn less_than_or_equal<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize;
-
-    fn not_equal<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize;
-
-    fn not_in<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize;
-}
-
-impl FieldPathFilterExt for FieldPath {
-    fn array_contains<T>(&self, value: &T) -> Result<Filter>
+impl Filter {
+    pub(crate) fn field<T>(
+        field_path: FieldPath,
+        op: field_filter::Operator,
+        value: &T,
+    ) -> Result<Filter>
     where
         T: serde::Serialize,
     {
-        op(self.clone(), field_filter::Operator::ArrayContains, value)
+        Ok(Filter(structured_query::Filter {
+            filter_type: Some(structured_query::filter::FilterType::FieldFilter(
+                structured_query::FieldFilter {
+                    field: Some(structured_query::FieldReference::from(field_path)),
+                    op: op as i32,
+                    value: Some(to_value(value)?),
+                },
+            )),
+        }))
     }
 
-    fn array_contains_any<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize,
-    {
-        op(
-            self.clone(),
-            field_filter::Operator::ArrayContainsAny,
-            value,
-        )
+    pub(crate) fn unary(field_path: FieldPath, op: unary_filter::Operator) -> Result<Filter> {
+        Ok(Filter(structured_query::Filter {
+            filter_type: Some(structured_query::filter::FilterType::UnaryFilter(
+                structured_query::UnaryFilter {
+                    op: op as i32,
+                    operand_type: Some(unary_filter::OperandType::Field(
+                        structured_query::FieldReference::from(field_path),
+                    )),
+                },
+            )),
+        }))
     }
-
-    fn equal<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize,
-    {
-        op(self.clone(), field_filter::Operator::Equal, value)
-    }
-
-    fn greater_than<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize,
-    {
-        op(self.clone(), field_filter::Operator::GreaterThan, value)
-    }
-
-    fn greater_than_or_equal<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize,
-    {
-        op(
-            self.clone(),
-            field_filter::Operator::GreaterThanOrEqual,
-            value,
-        )
-    }
-
-    fn r#in<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize,
-    {
-        op(self.clone(), field_filter::Operator::In, value)
-    }
-
-    fn is_nan(&self) -> Result<Filter> {
-        unary_op(self.clone(), unary_filter::Operator::IsNan)
-    }
-
-    fn is_not_nan(&self) -> Result<Filter> {
-        unary_op(self.clone(), unary_filter::Operator::IsNotNan)
-    }
-
-    fn is_not_null(&self) -> Result<Filter> {
-        unary_op(self.clone(), unary_filter::Operator::IsNotNull)
-    }
-
-    fn is_null(&self) -> Result<Filter> {
-        unary_op(self.clone(), unary_filter::Operator::IsNull)
-    }
-
-    fn less_than<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize,
-    {
-        op(self.clone(), field_filter::Operator::LessThan, value)
-    }
-
-    fn less_than_or_equal<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize,
-    {
-        op(self.clone(), field_filter::Operator::LessThanOrEqual, value)
-    }
-
-    fn not_equal<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize,
-    {
-        op(self.clone(), field_filter::Operator::NotEqual, value)
-    }
-
-    fn not_in<T>(&self, value: &T) -> Result<Filter>
-    where
-        T: serde::Serialize,
-    {
-        op(self.clone(), field_filter::Operator::NotIn, value)
-    }
-}
-
-fn op<T>(field_path: FieldPath, op: field_filter::Operator, value: &T) -> Result<Filter>
-where
-    T: serde::Serialize,
-{
-    Ok(Filter(structured_query::Filter {
-        filter_type: Some(structured_query::filter::FilterType::FieldFilter(
-            structured_query::FieldFilter {
-                field: Some(structured_query::FieldReference::from(field_path)),
-                op: op as i32,
-                value: Some(to_value(value)?),
-            },
-        )),
-    }))
-}
-
-fn unary_op(field_path: FieldPath, op: unary_filter::Operator) -> Result<Filter> {
-    Ok(Filter(structured_query::Filter {
-        filter_type: Some(structured_query::filter::FilterType::UnaryFilter(
-            structured_query::UnaryFilter {
-                op: op as i32,
-                operand_type: Some(unary_filter::OperandType::Field(
-                    structured_query::FieldReference::from(field_path),
-                )),
-            },
-        )),
-    }))
 }

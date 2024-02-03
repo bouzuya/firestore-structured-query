@@ -403,7 +403,7 @@ fn test_to_value() -> firestore_structured_query::Result<()> {
 #[test]
 fn test_query_where() -> firestore_structured_query::Result<()> {
     // Added: Query::r#where
-    use firestore_structured_query::{FieldPath, FieldPathFilterExt, Query};
+    use firestore_structured_query::{FieldPath, Query};
     use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
     let query1 =
         Query::collection_group("collection_id1").r#where(FieldPath::raw("field1").is_nan()?);
