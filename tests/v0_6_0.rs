@@ -57,10 +57,11 @@ fn test_field_path_array_contains_any() -> firestore_structured_query::Result<()
 #[test]
 fn test_field_path_ascending() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::ascending
-    use firestore_structured_query::FieldPath;
+    use firestore_structured_query::{FieldPath, Order};
     use google_api_proto::google::firestore::v1::structured_query;
+    let order: Order = FieldPath::raw("field1").ascending();
     assert_eq!(
-        FieldPath::raw("field1").ascending(),
+        structured_query::Order::from(order),
         structured_query::Order {
             field: Some(structured_query::FieldReference {
                 field_path: "field1".to_string()
@@ -74,10 +75,11 @@ fn test_field_path_ascending() -> firestore_structured_query::Result<()> {
 #[test]
 fn test_field_path_descending() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::descending
-    use firestore_structured_query::FieldPath;
+    use firestore_structured_query::{FieldPath, Order};
     use google_api_proto::google::firestore::v1::structured_query;
+    let order: Order = FieldPath::raw("field1").descending();
     assert_eq!(
-        FieldPath::raw("field1").descending(),
+        structured_query::Order::from(order),
         structured_query::Order {
             field: Some(structured_query::FieldReference {
                 field_path: "field1".to_string()
@@ -390,6 +392,34 @@ fn test_field_path_not_in() -> firestore_structured_query::Result<()> {
                     })
                 },
             )),
+        }
+    );
+    Ok(())
+}
+
+#[test]
+fn test_order() -> firestore_structured_query::Result<()> {
+    // Added: Order
+    use firestore_structured_query::{FieldPath, Order};
+    use google_api_proto::google::firestore::v1::structured_query;
+    let order: Order = FieldPath::raw("field1").ascending();
+    assert_eq!(
+        structured_query::Order::from(order),
+        structured_query::Order {
+            field: Some(structured_query::FieldReference {
+                field_path: "field1".to_string()
+            }),
+            direction: structured_query::Direction::Ascending as i32
+        }
+    );
+    let order: Order = FieldPath::raw("field1").descending();
+    assert_eq!(
+        structured_query::Order::from(order),
+        structured_query::Order {
+            field: Some(structured_query::FieldReference {
+                field_path: "field1".to_string()
+            }),
+            direction: structured_query::Direction::Descending as i32
         }
     );
     Ok(())

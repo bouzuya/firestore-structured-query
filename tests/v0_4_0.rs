@@ -220,8 +220,8 @@ fn test_query_order_by() -> firestore_structured_query::Result<()> {
             }],
             r#where: None,
             order_by: vec![
-                FieldPath::raw("field1").ascending(),
-                FieldPath::raw("field2").descending(),
+                structured_query::Order::from(FieldPath::raw("field1").ascending()),
+                structured_query::Order::from(FieldPath::raw("field2").descending()),
             ],
             start_at: None,
             end_at: None,
