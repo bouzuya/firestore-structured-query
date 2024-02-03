@@ -2,13 +2,35 @@
 pub type Result<T> = std::result::Result<T, Error>;
 
 /// An error that can occur when working with this crate.
-#[derive(Debug, thiserror::Error)]
-pub enum Error {
-    /// custom error
-    #[error("custom: {0}")]
-    Custom(#[source] Box<dyn std::error::Error + Send + Sync>),
-    #[cfg(feature = "serde")]
-    /// [`serde_firestore_value::to_value`] error
-    #[error("to value: {0}")]
-    ToValue(#[from] serde_firestore_value::Error),
+#[derive(Debug)]
+pub struct Error {
+    source: Box<dyn std::error::Error + Send + Sync>,
+}
+
+impl Error {
+    /// Create a new error from a source error.
+    pub fn new<E>(source: E) -> Self
+    where
+        E: Into<Box<dyn std::error::Error + Send + Sync>>,
+    {
+        Self::from(source.into())
+    }
+}
+
+impl std::convert::From<Box<dyn std::error::Error + Send + Sync>> for Error {
+    fn from(source: Box<dyn std::error::Error + Send + Sync>) -> Self {
+        Self { source }
+    }
+}
+
+impl std::error::Error for Error {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        Some(&*self.source)
+    }
+}
+
+impl std::fmt::Display for Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.source.fmt(f)
+    }
 }
