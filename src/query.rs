@@ -1,5 +1,6 @@
 use google_api_proto::google::firestore::v1::{structured_query, Cursor, StructuredQuery};
 
+#[derive(Clone, Debug, PartialEq)]
 pub struct Query(StructuredQuery);
 
 impl Query {
