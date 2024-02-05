@@ -2,6 +2,7 @@ use google_api_proto::google::firestore::v1::structured_query;
 
 use crate::FieldPath;
 
+#[derive(Clone, Debug, PartialEq)]
 pub struct Order(structured_query::Order);
 
 impl Order {
