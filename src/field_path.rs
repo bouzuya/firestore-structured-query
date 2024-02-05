@@ -38,6 +38,21 @@ pub struct FieldPath {
 
 impl FieldPath {
     /// Creates a new field path without escaping.
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// use firestore_structured_query::FieldPath;
+    /// use google_api_proto::google::firestore::v1::structured_query;
+    ///
+    /// let field_path1 = FieldPath::raw("field1");
+    /// assert_eq!(
+    ///     structured_query::FieldReference::from(field_path1),
+    ///     structured_query::FieldReference {
+    ///         field_path: "field1".to_string(),
+    ///     }
+    /// );
+    /// ```
     pub fn raw<S>(field_path: S) -> Self
     where
         S: Into<String>,
