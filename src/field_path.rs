@@ -747,6 +747,30 @@ impl FieldPath {
 
 // for Order
 impl FieldPath {
+    /// Creates a new `Order` with the `Ascending` direction.
+    ///
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.Order>
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.Direction.ENUM_VALUES.google.firestore.v1.StructuredQuery.Direction.ASCENDING>
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// # fn test_field_path_ascending() -> firestore_structured_query::Result<()> {
+    /// use firestore_structured_query::{FieldPath, Order};
+    /// use google_api_proto::google::firestore::v1::structured_query;
+    /// let order: Order = FieldPath::raw("field1").ascending();
+    /// assert_eq!(
+    ///     structured_query::Order::from(order),
+    ///     structured_query::Order {
+    ///         field: Some(structured_query::FieldReference {
+    ///             field_path: "field1".to_string()
+    ///         }),
+    ///         direction: structured_query::Direction::Ascending as i32
+    ///     }
+    /// );
+    /// #     Ok(())
+    /// # }
+    /// ```
     pub fn ascending(&self) -> Order {
         Order::new(self.clone(), structured_query::Direction::Ascending)
     }
