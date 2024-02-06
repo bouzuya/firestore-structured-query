@@ -678,6 +678,65 @@ impl FieldPath {
         Filter::field(self.clone(), field_filter::Operator::NotEqual, value)
     }
 
+    /// Creates a new `FieldFilter` with the `NotIn` operator.
+    ///
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.FieldFilter>
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.FieldFilter.Operator.ENUM_VALUES.google.firestore.v1.StructuredQuery.FieldFilter.Operator.NOT_IN>
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// # fn test_field_path_not_in() -> firestore_structured_query::Result<()> {
+    /// use firestore_structured_query::{FieldPath, IntoValue, Result};
+    /// use google_api_proto::google::firestore::v1::{
+    ///     structured_query, value::ValueType, ArrayValue, Value,
+    /// };
+    /// struct S(Vec<i64>);
+    /// impl IntoValue for S {
+    ///     fn into_value(self) -> Result<Value> {
+    ///         Ok(Value {
+    ///             value_type: Some(ValueType::ArrayValue(ArrayValue {
+    ///                 values: self
+    ///                     .0
+    ///                     .into_iter()
+    ///                     .map(|i| Value {
+    ///                         value_type: Some(ValueType::IntegerValue(i)),
+    ///                     })
+    ///                     .collect(),
+    ///             })),
+    ///         })
+    ///     }
+    /// }
+    /// let filter1 = FieldPath::raw("field10").not_in(Value {
+    ///     value_type: Some(ValueType::ArrayValue(ArrayValue {
+    ///         values: vec![Value {
+    ///             value_type: Some(ValueType::IntegerValue(10)),
+    ///         }],
+    ///     })),
+    /// })?;
+    /// let filter2 = FieldPath::raw("field10").not_in(S(vec![10]))?;
+    /// let expected = structured_query::Filter {
+    ///     filter_type: Some(structured_query::filter::FilterType::FieldFilter(
+    ///         structured_query::FieldFilter {
+    ///             field: Some(structured_query::FieldReference {
+    ///                 field_path: "field10".to_string(),
+    ///             }),
+    ///             op: structured_query::field_filter::Operator::NotIn as i32,
+    ///             value: Some(Value {
+    ///                 value_type: Some(ValueType::ArrayValue(ArrayValue {
+    ///                     values: vec![Value {
+    ///                         value_type: Some(ValueType::IntegerValue(10)),
+    ///                     }],
+    ///                 })),
+    ///             }),
+    ///         },
+    ///     )),
+    /// };
+    /// assert_eq!(structured_query::Filter::from(filter1), expected);
+    /// assert_eq!(structured_query::Filter::from(filter2), expected);
+    /// #     Ok(())
+    /// # }
+    /// ```
     pub fn not_in<T>(&self, value: T) -> Result<Filter>
     where
         T: IntoValue,
