@@ -114,6 +114,65 @@ impl FieldPath {
         Filter::field(self.clone(), field_filter::Operator::ArrayContains, value)
     }
 
+    /// Creates a new `FieldFilter` with the `ArrayContainsAny` operator.
+    ///
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.FieldFilter>
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.FieldFilter.Operator.ENUM_VALUES.google.firestore.v1.StructuredQuery.FieldFilter.Operator.ARRAY_CONTAINS_ANY>
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// # fn test_field_path_array_contains_any() -> firestore_structured_query::Result<()> {
+    /// use firestore_structured_query::{FieldPath, IntoValue, Result};
+    /// use google_api_proto::google::firestore::v1::{
+    ///     structured_query, value::ValueType, ArrayValue, Value,
+    /// };
+    /// struct S(Vec<i64>);
+    /// impl IntoValue for S {
+    ///     fn into_value(self) -> Result<Value> {
+    ///         Ok(Value {
+    ///             value_type: Some(ValueType::ArrayValue(ArrayValue {
+    ///                 values: self
+    ///                     .0
+    ///                     .into_iter()
+    ///                     .map(|i| Value {
+    ///                         value_type: Some(ValueType::IntegerValue(i)),
+    ///                     })
+    ///                     .collect(),
+    ///             })),
+    ///         })
+    ///     }
+    /// }
+    /// let filter1 = FieldPath::raw("field9").array_contains_any(Value {
+    ///     value_type: Some(ValueType::ArrayValue(ArrayValue {
+    ///         values: vec![Value {
+    ///             value_type: Some(ValueType::IntegerValue(9)),
+    ///         }],
+    ///     })),
+    /// })?;
+    /// let filter2 = FieldPath::raw("field9").array_contains_any(S(vec![9]))?;
+    /// let expected = structured_query::Filter {
+    ///     filter_type: Some(structured_query::filter::FilterType::FieldFilter(
+    ///         structured_query::FieldFilter {
+    ///             field: Some(structured_query::FieldReference {
+    ///                 field_path: "field9".to_string(),
+    ///             }),
+    ///             op: structured_query::field_filter::Operator::ArrayContainsAny as i32,
+    ///             value: Some(Value {
+    ///                 value_type: Some(ValueType::ArrayValue(ArrayValue {
+    ///                     values: vec![Value {
+    ///                         value_type: Some(ValueType::IntegerValue(9)),
+    ///                     }],
+    ///                 })),
+    ///             }),
+    ///         },
+    ///     )),
+    /// };
+    /// assert_eq!(structured_query::Filter::from(filter1), expected);
+    /// assert_eq!(structured_query::Filter::from(filter2), expected);
+    /// #     Ok(())
+    /// # }
+    /// ```
     pub fn array_contains_any<T>(&self, value: T) -> Result<Filter>
     where
         T: IntoValue,
