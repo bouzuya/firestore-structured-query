@@ -398,6 +398,36 @@ impl FieldPath {
         Filter::field(self.clone(), field_filter::Operator::In, value)
     }
 
+    /// Creates a new `UnaryFilter` with the `IsNan` operator.
+    ///
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.UnaryFilter>
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.UnaryFilter.Operator.ENUM_VALUES.google.firestore.v1.StructuredQuery.UnaryFilter.Operator.IS_NAN>
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// # fn test_field_path_is_nan() -> firestore_structured_query::Result<()> {
+    /// use firestore_structured_query::FieldPath;
+    /// use google_api_proto::google::firestore::v1::structured_query;
+    /// let filter1 = FieldPath::raw("field11").is_nan()?;
+    /// assert_eq!(
+    ///     structured_query::Filter::from(filter1),
+    ///     structured_query::Filter {
+    ///         filter_type: Some(structured_query::filter::FilterType::UnaryFilter(
+    ///             structured_query::UnaryFilter {
+    ///                 op: structured_query::unary_filter::Operator::IsNan as i32,
+    ///                 operand_type: Some(structured_query::unary_filter::OperandType::Field(
+    ///                     structured_query::FieldReference {
+    ///                         field_path: "field11".to_string()
+    ///                     }
+    ///                 )),
+    ///             },
+    ///         )),
+    ///     }
+    /// );
+    /// #     Ok(())
+    /// # }
+    /// ```
     pub fn is_nan(&self) -> Result<Filter> {
         Filter::unary(self.clone(), unary_filter::Operator::IsNan)
     }
