@@ -500,6 +500,36 @@ impl FieldPath {
         Filter::unary(self.clone(), unary_filter::Operator::IsNotNull)
     }
 
+    /// Creates a new `UnaryFilter` with the `IsNull` operator.
+    ///
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.UnaryFilter>
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.UnaryFilter.Operator.ENUM_VALUES.google.firestore.v1.StructuredQuery.UnaryFilter.Operator.IS_NULL>
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// # fn test_field_path_is_null() -> firestore_structured_query::Result<()> {
+    /// use firestore_structured_query::FieldPath;
+    /// use google_api_proto::google::firestore::v1::structured_query;
+    /// let filter1 = FieldPath::raw("field14").is_null()?;
+    /// assert_eq!(
+    ///     structured_query::Filter::from(filter1),
+    ///     structured_query::Filter {
+    ///         filter_type: Some(structured_query::filter::FilterType::UnaryFilter(
+    ///             structured_query::UnaryFilter {
+    ///                 op: structured_query::unary_filter::Operator::IsNull as i32,
+    ///                 operand_type: Some(structured_query::unary_filter::OperandType::Field(
+    ///                     structured_query::FieldReference {
+    ///                         field_path: "field14".to_string()
+    ///                     }
+    ///                 )),
+    ///             },
+    ///         )),
+    ///     }
+    /// );
+    /// #     Ok(())
+    /// # }
+    /// ```
     pub fn is_null(&self) -> Result<Filter> {
         Filter::unary(self.clone(), unary_filter::Operator::IsNull)
     }
