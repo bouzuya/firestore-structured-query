@@ -630,6 +630,47 @@ impl FieldPath {
         Filter::field(self.clone(), field_filter::Operator::LessThanOrEqual, value)
     }
 
+    /// Creates a new `FieldFilter` with the `NotEqual` operator.
+    ///
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.FieldFilter>
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.FieldFilter.Operator.ENUM_VALUES.google.firestore.v1.StructuredQuery.FieldFilter.Operator.NOT_EQUAL>
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// # fn test_field_path_not_equal() -> firestore_structured_query::Result<()> {
+    /// use firestore_structured_query::{FieldPath, IntoValue, Result};
+    /// use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+    /// struct S(i64);
+    /// impl IntoValue for S {
+    ///     fn into_value(self) -> Result<Value> {
+    ///         Ok(Value {
+    ///             value_type: Some(ValueType::IntegerValue(self.0)),
+    ///         })
+    ///     }
+    /// }
+    /// let filter1 = FieldPath::raw("field6").not_equal(Value {
+    ///     value_type: Some(ValueType::IntegerValue(6)),
+    /// })?;
+    /// let filter2 = FieldPath::raw("field6").not_equal(S(6))?;
+    /// let expected = structured_query::Filter {
+    ///     filter_type: Some(structured_query::filter::FilterType::FieldFilter(
+    ///         structured_query::FieldFilter {
+    ///             field: Some(structured_query::FieldReference {
+    ///                 field_path: "field6".to_string(),
+    ///             }),
+    ///             op: structured_query::field_filter::Operator::NotEqual as i32,
+    ///             value: Some(Value {
+    ///                 value_type: Some(ValueType::IntegerValue(6)),
+    ///             }),
+    ///         },
+    ///     )),
+    /// };
+    /// assert_eq!(structured_query::Filter::from(filter1), expected);
+    /// assert_eq!(structured_query::Filter::from(filter2), expected);
+    /// #     Ok(())
+    /// # }
+    /// ```
     pub fn not_equal<T>(&self, value: T) -> Result<Filter>
     where
         T: IntoValue,
