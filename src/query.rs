@@ -221,6 +221,55 @@ impl Query {
         })
     }
 
+    /// Sets the specified value to end_at and returns the Query.
+    ///
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.Cursor>
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// # fn test_query_end_at() -> firestore_structured_query::Result<()> {
+    /// use firestore_structured_query::Query;
+    /// use google_api_proto::google::firestore::v1::{
+    ///     structured_query, value::ValueType, Cursor, StructuredQuery, Value,
+    /// };
+    /// let query1 = Query::collection_group("collection_id1").end_at([
+    ///     Value {
+    ///         value_type: Some(ValueType::IntegerValue(1)),
+    ///     },
+    ///     Value {
+    ///         value_type: Some(ValueType::IntegerValue(2)),
+    ///     },
+    /// ]);
+    /// assert_eq!(
+    ///     StructuredQuery::from(query1),
+    ///     StructuredQuery {
+    ///         select: None,
+    ///         from: vec![structured_query::CollectionSelector {
+    ///             collection_id: "collection_id1".to_string(),
+    ///             all_descendants: true,
+    ///         }],
+    ///         r#where: None,
+    ///         order_by: vec![],
+    ///         start_at: None,
+    ///         end_at: Some(Cursor {
+    ///             values: vec![
+    ///                 Value {
+    ///                     value_type: Some(ValueType::IntegerValue(1)),
+    ///                 },
+    ///                 Value {
+    ///                     value_type: Some(ValueType::IntegerValue(2)),
+    ///                 },
+    ///             ],
+    ///             before: false,
+    ///         }),
+    ///         offset: 0_i32,
+    ///         limit: None,
+    ///     }
+    /// );
+    /// #     Ok(())
+    /// # }
+    /// ```
     pub fn end_at<I>(mut self, values: I) -> Self
     where
         I: IntoIterator<Item = google_api_proto::google::firestore::v1::Value>,
