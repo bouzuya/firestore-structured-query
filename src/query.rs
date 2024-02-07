@@ -119,6 +119,38 @@ use google_api_proto::google::firestore::v1::{structured_query, Cursor, Structur
 pub struct Query(StructuredQuery);
 
 impl Query {
+    /// Creates a new `Query` for a collection.
+    ///
+    /// The query that internally holds a `CollectionSelector` with `all_descendants` set to `false`.
+    ///
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.CollectionSelector>
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// # fn test_query_collection() -> firestore_structured_query::Result<()> {
+    /// use firestore_structured_query::Query;
+    /// use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
+    /// let query1 = Query::collection("collection_id1");
+    /// assert_eq!(
+    ///     StructuredQuery::from(query1),
+    ///     StructuredQuery {
+    ///         select: None,
+    ///         from: vec![structured_query::CollectionSelector {
+    ///             collection_id: "collection_id1".to_string(),
+    ///             all_descendants: false,
+    ///         }],
+    ///         r#where: None,
+    ///         order_by: vec![],
+    ///         start_at: None,
+    ///         end_at: None,
+    ///         offset: 0_i32,
+    ///         limit: None,
+    ///     }
+    /// );
+    /// #     Ok(())
+    /// # }
+    /// ```
     pub fn collection<S>(collection_id: S) -> Self
     where
         S: Into<String>,
