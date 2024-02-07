@@ -170,6 +170,38 @@ impl Query {
         })
     }
 
+    /// Creates a new `Query` for a collection group.
+    ///
+    /// The query that internally holds a `CollectionSelector` with `all_descendants` set to `true`.
+    ///
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.CollectionSelector>
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// # fn test_query_collection_group() -> firestore_structured_query::Result<()> {
+    /// use firestore_structured_query::Query;
+    /// use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
+    /// let query1 = Query::collection_group("collection_id1");
+    /// assert_eq!(
+    ///     StructuredQuery::from(query1),
+    ///     StructuredQuery {
+    ///         select: None,
+    ///         from: vec![structured_query::CollectionSelector {
+    ///             collection_id: "collection_id1".to_string(),
+    ///             all_descendants: true,
+    ///         }],
+    ///         r#where: None,
+    ///         order_by: vec![],
+    ///         start_at: None,
+    ///         end_at: None,
+    ///         offset: 0_i32,
+    ///         limit: None,
+    ///     }
+    /// );
+    /// #     Ok(())
+    /// # }
+    /// ```
     pub fn collection_group<S>(collection_id: S) -> Self
     where
         S: Into<String>,
