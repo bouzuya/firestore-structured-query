@@ -105,6 +105,41 @@ impl Filter {
         })
     }
 
+    /// Creates a new `CompositeFilter` with the `Or` operator.
+    ///
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#compositefilter>
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.CompositeFilter.Operator.ENUM_VALUES.google.firestore.v1.StructuredQuery.CompositeFilter.Operator.OR>
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// # fn test_filter_or() -> firestore_structured_query::Result<()> {
+    /// use firestore_structured_query::{FieldPath, Filter};
+    /// use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+    /// let filter1 = FieldPath::raw("field1").less_than(Value {
+    ///     value_type: Some(ValueType::IntegerValue(1)),
+    /// })?;
+    /// let filter2 = FieldPath::raw("field2").less_than_or_equal(Value {
+    ///     value_type: Some(ValueType::IntegerValue(2)),
+    /// })?;
+    /// let filter3 = Filter::or([filter1.clone(), filter2.clone()]);
+    /// assert_eq!(
+    ///     structured_query::Filter::from(filter3),
+    ///     structured_query::Filter {
+    ///         filter_type: Some(structured_query::filter::FilterType::CompositeFilter(
+    ///             structured_query::CompositeFilter {
+    ///                 op: structured_query::composite_filter::Operator::Or as i32,
+    ///                 filters: vec![
+    ///                     structured_query::Filter::from(filter1),
+    ///                     structured_query::Filter::from(filter2)
+    ///                 ],
+    ///             },
+    ///         )),
+    ///     }
+    /// );
+    /// #     Ok(())
+    /// # }
+    /// ```
     pub fn or<I>(filters: I) -> Self
     where
         I: IntoIterator<Item = Self>,
