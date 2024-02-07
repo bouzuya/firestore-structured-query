@@ -3,6 +3,55 @@ use crate::{error::Result, IntoValue};
 
 use google_api_proto::google::firestore::v1::structured_query::{self, field_filter, unary_filter};
 
+/// A Firestore query filter.
+///
+/// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#filter>
+///
+/// # Examples
+///
+/// ```rust
+/// # fn example_filter() -> firestore_structured_query::Result<()> {
+/// use firestore_structured_query::{FieldPath, Filter};
+/// use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+/// let filter1: Filter = FieldPath::raw("field1").less_than(Value {
+///     value_type: Some(ValueType::IntegerValue(1)),
+/// })?;
+/// let filter2: Filter = FieldPath::raw("field2").less_than_or_equal(Value {
+///     value_type: Some(ValueType::IntegerValue(2)),
+/// })?;
+/// let filter3 = Filter::and([filter1.clone(), filter2.clone()]);
+/// let filter4 = Filter::or([filter1.clone(), filter2.clone()]);
+/// assert_eq!(
+///     structured_query::Filter::from(filter3),
+///     structured_query::Filter {
+///         filter_type: Some(structured_query::filter::FilterType::CompositeFilter(
+///             structured_query::CompositeFilter {
+///                 op: structured_query::composite_filter::Operator::And as i32,
+///                 filters: vec![
+///                     structured_query::Filter::from(filter1),
+///                     structured_query::Filter::from(filter2)
+///                 ],
+///             },
+///         )),
+///     }
+/// );
+/// assert_eq!(
+///     structured_query::Filter::from(filter4),
+///     structured_query::Filter {
+///         filter_type: Some(structured_query::filter::FilterType::CompositeFilter(
+///             structured_query::CompositeFilter {
+///                 op: structured_query::composite_filter::Operator::Or as i32,
+///                 filters: vec![
+///                     structured_query::Filter::from(filter1),
+///                     structured_query::Filter::from(filter2)
+///                 ],
+///             },
+///         )),
+///     }
+/// );
+/// #     Ok(())
+/// # }
+/// ```
 #[derive(Clone, Debug, PartialEq)]
 pub struct Filter(structured_query::Filter);
 
