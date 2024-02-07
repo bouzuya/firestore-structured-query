@@ -223,6 +223,7 @@ impl Query {
 
     /// Sets the specified value to end_at and returns the Query.
     ///
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.FIELDS.google.firestore.v1.Cursor.google.firestore.v1.StructuredQuery.end_at>
     /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.Cursor>
     ///
     /// # Examples
@@ -283,6 +284,7 @@ impl Query {
 
     /// Sets the specified value to end_at and returns the Query.
     ///
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.FIELDS.google.firestore.v1.Cursor.google.firestore.v1.StructuredQuery.end_at>
     /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.Cursor>
     ///
     /// # Examples
@@ -341,6 +343,36 @@ impl Query {
         self
     }
 
+    /// Sets the specified value to limit and returns the Query.
+    ///
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.FIELDS.google.protobuf.Int32Value.google.firestore.v1.StructuredQuery.limit>
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// # fn test_query_limit() -> firestore_structured_query::Result<()> {
+    /// use firestore_structured_query::Query;
+    /// use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
+    /// let query1 = Query::collection_group("collection_id1").limit(1_i32);
+    /// assert_eq!(
+    ///     StructuredQuery::from(query1),
+    ///     StructuredQuery {
+    ///         select: None,
+    ///         from: vec![structured_query::CollectionSelector {
+    ///             collection_id: "collection_id1".to_string(),
+    ///             all_descendants: true,
+    ///         }],
+    ///         r#where: None,
+    ///         order_by: vec![],
+    ///         start_at: None,
+    ///         end_at: None,
+    ///         offset: 0_i32,
+    ///         limit: Some(1_i32),
+    ///     }
+    /// );
+    /// #     Ok(())
+    /// # }
+    /// ```
     pub fn limit(mut self, limit: i32) -> Self {
         self.0.limit = Some(limit);
         self
