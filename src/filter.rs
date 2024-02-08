@@ -28,8 +28,8 @@ use google_api_proto::google::firestore::v1::structured_query::{self, field_filt
 ///             structured_query::CompositeFilter {
 ///                 op: structured_query::composite_filter::Operator::And as i32,
 ///                 filters: vec![
-///                     structured_query::Filter::from(filter1),
-///                     structured_query::Filter::from(filter2)
+///                     structured_query::Filter::from(filter1.clone()),
+///                     structured_query::Filter::from(filter2.clone())
 ///                 ],
 ///             },
 ///         )),
