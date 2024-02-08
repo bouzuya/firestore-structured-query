@@ -9,7 +9,9 @@ where
         .map_err(Box::<dyn std::error::Error + Send + Sync>::from)?)
 }
 
+/// A Firestore value converter trait.
 pub trait IntoValue {
+    /// Convert the value into a Firestore value.
     fn into_value(self) -> Result<google_api_proto::google::firestore::v1::Value>;
 }
 
