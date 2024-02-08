@@ -660,6 +660,77 @@ impl Query {
         self
     }
 
+    /// Sets the specified value to where and returns the Query.
+    ///
+    /// <https://firebase.google.com/docs/firestore/reference/rpc/google.firestore.v1#google.firestore.v1.StructuredQuery.FIELDS.google.firestore.v1.StructuredQuery.Filter.google.firestore.v1.StructuredQuery.where>
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// # fn test_query_where() -> firestore_structured_query::Result<()> {
+    /// use firestore_structured_query::{FieldPath, Query};
+    /// use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
+    /// let query1 =
+    ///     Query::collection_group("collection_id1").r#where(FieldPath::raw("field1").is_nan()?);
+    /// assert_eq!(
+    ///     StructuredQuery::from(query1),
+    ///     StructuredQuery {
+    ///         select: None,
+    ///         from: vec![structured_query::CollectionSelector {
+    ///             collection_id: "collection_id1".to_string(),
+    ///             all_descendants: true,
+    ///         }],
+    ///         r#where: Some(structured_query::Filter {
+    ///             filter_type: Some(structured_query::filter::FilterType::UnaryFilter(
+    ///                 structured_query::UnaryFilter {
+    ///                     op: structured_query::unary_filter::Operator::IsNan as i32,
+    ///                     operand_type: Some(structured_query::unary_filter::OperandType::Field(
+    ///                         structured_query::FieldReference {
+    ///                             field_path: "field1".to_string(),
+    ///                         }
+    ///                     ))
+    ///                 }
+    ///             ))
+    ///         }),
+    ///         order_by: vec![],
+    ///         start_at: None,
+    ///         end_at: None,
+    ///         offset: 0_i32,
+    ///         limit: None,
+    ///     }
+    /// );
+    /// let filter1 = structured_query::Filter {
+    ///     filter_type: Some(structured_query::filter::FilterType::UnaryFilter(
+    ///         structured_query::UnaryFilter {
+    ///             op: structured_query::unary_filter::Operator::IsNan as i32,
+    ///             operand_type: Some(structured_query::unary_filter::OperandType::Field(
+    ///                 structured_query::FieldReference {
+    ///                     field_path: "field1".to_string(),
+    ///                 },
+    ///             )),
+    ///         },
+    ///     )),
+    /// };
+    /// let query2 = Query::collection_group("collection_id1").r#where(filter1.clone());
+    /// assert_eq!(
+    ///     StructuredQuery::from(query2),
+    ///     StructuredQuery {
+    ///         select: None,
+    ///         from: vec![structured_query::CollectionSelector {
+    ///             collection_id: "collection_id1".to_string(),
+    ///             all_descendants: true,
+    ///         }],
+    ///         r#where: Some(filter1),
+    ///         order_by: vec![],
+    ///         start_at: None,
+    ///         end_at: None,
+    ///         offset: 0_i32,
+    ///         limit: None,
+    ///     }
+    /// );
+    /// #     Ok(())
+    /// # }
+    /// ```
     pub fn r#where<F>(mut self, filter: F) -> Self
     where
         F: Into<structured_query::Filter>,
