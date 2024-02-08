@@ -591,9 +591,9 @@ dependencies = [
 
 [[package]]
 name = "serde-firestore-value"
-version = "0.5.0"
+version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d4c449cab415ebf1aa13e223054bb97a09bc3e532dbae3b392f9e9b88b4a23ce"
+checksum = "133939dddba28769b68015533a77caa731fd986a526ac12e7dbc10d6680cce92"
 dependencies = [
  "google-api-proto",
  "prost",
