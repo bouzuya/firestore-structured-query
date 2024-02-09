@@ -240,9 +240,9 @@ checksum = "4271d37baee1b8c7e4b708028c57d816cf9d2434acb33a549475f78c181f6253"
 
 [[package]]
 name = "google-api-proto"
-version = "1.501.0"
+version = "1.503.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd79078621391ee65c5951ecf984fa96b1df0a80fabb3cd41326a0ea4bf84df6"
+checksum = "4a213cf5100cb93dad5a272499dfa12b0d60193f39ba5dd196de498c76c5bba9"
 dependencies = [
  "prost",
  "prost-types",
@@ -591,9 +591,9 @@ dependencies = [
 
 [[package]]
 name = "serde-firestore-value"
-version = "0.5.1"
+version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "133939dddba28769b68015533a77caa731fd986a526ac12e7dbc10d6680cce92"
+checksum = "57704aa75182ffb951d0577bdc361ad2c332a8dfa0c04be4e7384eb9875f5262"
 dependencies = [
  "google-api-proto",
  "prost",
