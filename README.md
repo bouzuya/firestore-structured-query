@@ -115,3 +115,12 @@ let _ = StructuredQuery::from(
         .limit(2_i32),
 );
 ```
+
+## Version matrices
+
+| firestore-structured-query | [google-api-proto] | tonic     |
+|----------------------------|--------------------|-----------|
+| <0.7.0                     | (unknown)          | (unknown) |
+| >=0.7.0                    | >=1.516.0          | 0.11.x    |
+
+[google-api-proto]: https://github.com/mechiru/google-api-proto
