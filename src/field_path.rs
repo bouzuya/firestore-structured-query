@@ -34,7 +34,61 @@ use crate::{Filter, IntoValue, Order};
 #[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
 pub struct FieldPath(String);
 
+fn is_simple_field_name(s: &str) -> bool {
+    s.chars().all(|c| c.is_ascii_alphanumeric() || c == '_')
+        && !s.starts_with(|c: char| -> bool { c.is_ascii_digit() })
+}
+
 impl FieldPath {
+    /// Creates a new field path.
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// # fn test_field_path_new() -> firestore_structured_query::Result<()> {
+    /// use firestore_structured_query::FieldPath;
+    /// use google_api_proto::google::firestore::v1::structured_query;
+    ///
+    /// // simple field name
+    /// let field_path1 = FieldPath::new(["field1"])?;
+    /// assert_eq!(
+    ///     structured_query::FieldReference::from(field_path1),
+    ///     structured_query::FieldReference {
+    ///         field_path: "field1".to_string(),
+    ///     }
+    /// );
+    /// let field_path2 = FieldPath::new(["field1", "field2"])?;
+    /// assert_eq!(
+    ///     structured_query::FieldReference::from(field_path2),
+    ///     structured_query::FieldReference {
+    ///         field_path: "field1.field2".to_string(),
+    ///     }
+    /// );
+    /// #     Ok(())
+    /// # }
+    /// ```
+    pub fn new<I>(field_names: I) -> Result<Self>
+    where
+        I: IntoIterator,
+        I::Item: Into<String>,
+    {
+        Ok(Self(
+            field_names
+                .into_iter()
+                .map(Into::into)
+                .map(|s| {
+                    if is_simple_field_name(&s) {
+                        Ok(s)
+                    } else {
+                        // FIXME: validate quoted field name
+                        Err(crate::Error::new(format!("invalid field name: {}", s)))
+                    }
+                })
+                .collect::<Result<Vec<String>>>()?
+                .join("."),
+        ))
+    }
+
     /// Creates a new field path without escaping.
     ///
     /// # Examples
