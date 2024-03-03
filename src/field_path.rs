@@ -32,9 +32,7 @@ use crate::{Filter, IntoValue, Order};
 /// );
 /// ```
 #[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
-pub struct FieldPath {
-    field_names: Vec<String>,
-}
+pub struct FieldPath(String);
 
 impl FieldPath {
     /// Creates a new field path without escaping.
@@ -57,9 +55,7 @@ impl FieldPath {
     where
         S: Into<String>,
     {
-        Self {
-            field_names: vec![field_path.into()],
-        }
+        Self(field_path.into())
     }
 }
 
@@ -805,9 +801,7 @@ impl FieldPath {
 }
 
 impl std::convert::From<FieldPath> for structured_query::FieldReference {
-    fn from(field_path: FieldPath) -> Self {
-        structured_query::FieldReference {
-            field_path: field_path.field_names.join("."),
-        }
+    fn from(FieldPath(field_path): FieldPath) -> Self {
+        structured_query::FieldReference { field_path }
     }
 }
