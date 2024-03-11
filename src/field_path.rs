@@ -45,7 +45,7 @@ impl FieldPath {
     /// # Examples
     ///
     /// ```rust
-    /// # fn test_field_path_new() -> firestore_structured_query::Result<()> {
+    /// # fn test_field_path_new() {
     /// use firestore_structured_query::FieldPath;
     /// use google_api_proto::google::firestore::v1::structured_query;
     ///
@@ -78,7 +78,6 @@ impl FieldPath {
     ///         field_path: r#"`a\`b`.`a\\b`"#.to_string(),
     ///     }
     /// );
-    /// #     Ok(())
     /// # }
     /// ```
     pub fn new<I>(field_names: I) -> Self
@@ -94,7 +93,7 @@ impl FieldPath {
                     if is_simple_field_name(&s) {
                         s
                     } else {
-                        format!("`{}`", s.replace('`', r#"\`"#))
+                        format!("`{}`", s.replace('\\', r#"\\"#).replace('`', r#"\`"#))
                     }
                 })
                 .collect::<Vec<String>>()
