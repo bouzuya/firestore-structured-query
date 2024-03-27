@@ -125,3 +125,7 @@ let _ = StructuredQuery::from(
 | >=0.9.0                    | >=1.557.0           | 0.11.x    |
 
 [google-api-proto]: https://github.com/mechiru/google-api-proto
+
+## TODOs
+
+- `StructuredQuery::find_nearest` support
