@@ -445,6 +445,7 @@ fn test_full_example_with_serde() -> firestore_structured_query::Result<()> {
             }),
             offset: 1_i32,
             limit: Some(2_i32),
+            find_nearest: None,
         }
     );
 
@@ -500,6 +501,7 @@ fn test_full_example_with_serde() -> firestore_structured_query::Result<()> {
             }),
             offset: 0_i32,
             limit: None
+            find_nearest: None,
         }
     );
 
