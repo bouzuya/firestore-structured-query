@@ -95,6 +95,7 @@ impl Query {
     ///         end_at: None,
     ///         offset: 0_i32,
     ///         limit: None,
+    ///         find_nearest: None,
     ///     }
     /// );
     /// #     Ok(())
@@ -116,6 +117,7 @@ impl Query {
             end_at: None,
             offset: 0_i32,
             limit: None,
+            find_nearest: None,
         })
     }
 
@@ -146,6 +148,7 @@ impl Query {
     ///         end_at: None,
     ///         offset: 0_i32,
     ///         limit: None,
+    ///         find_nearest: None,
     ///     }
     /// );
     /// #     Ok(())
@@ -167,6 +170,7 @@ impl Query {
             end_at: None,
             offset: 0_i32,
             limit: None,
+            find_nearest: None,
         })
     }
 
@@ -215,6 +219,7 @@ impl Query {
     ///         }),
     ///         offset: 0_i32,
     ///         limit: None,
+    ///         find_nearest: None,
     ///     }
     /// );
     /// #     Ok(())
@@ -276,6 +281,7 @@ impl Query {
     ///         }),
     ///         offset: 0_i32,
     ///         limit: None,
+    ///         find_nearest: None,
     ///     }
     /// );
     /// #     Ok(())
@@ -317,6 +323,7 @@ impl Query {
     ///         end_at: None,
     ///         offset: 0_i32,
     ///         limit: Some(1_i32),
+    ///         find_nearest: None,
     ///     }
     /// );
     /// #     Ok(())
@@ -352,6 +359,7 @@ impl Query {
     ///         end_at: None,
     ///         offset: 1_i32,
     ///         limit: None,
+    ///         find_nearest: None,
     ///     }
     /// );
     /// #     Ok(())
@@ -393,6 +401,7 @@ impl Query {
     ///         end_at: None,
     ///         offset: 0_i32,
     ///         limit: None,
+    ///         find_nearest: None,
     ///     }
     /// );
     /// let order_by1 = vec![
@@ -424,6 +433,7 @@ impl Query {
     ///         end_at: None,
     ///         offset: 0_i32,
     ///         limit: None,
+    ///         find_nearest: None,
     ///     }
     /// );
     /// #     Ok(())
@@ -473,6 +483,7 @@ impl Query {
     ///         end_at: None,
     ///         offset: 0_i32,
     ///         limit: None,
+    ///         find_nearest: None,
     ///     }
     /// );
     /// #     Ok(())
@@ -533,6 +544,7 @@ impl Query {
     ///         end_at: None,
     ///         offset: 0_i32,
     ///         limit: None,
+    ///         find_nearest: None,
     ///     }
     /// );
     /// #     Ok(())
@@ -593,6 +605,7 @@ impl Query {
     ///         end_at: None,
     ///         offset: 0_i32,
     ///         limit: None,
+    ///         find_nearest: None,
     ///     }
     /// );
     /// #     Ok(())
@@ -646,6 +659,7 @@ impl Query {
     ///         end_at: None,
     ///         offset: 0_i32,
     ///         limit: None,
+    ///         find_nearest: None,
     ///     }
     /// );
     /// let filter1 = structured_query::Filter {
@@ -675,6 +689,7 @@ impl Query {
     ///         end_at: None,
     ///         offset: 0_i32,
     ///         limit: None,
+    ///         find_nearest: None,
     ///     }
     /// );
     /// #     Ok(())
