@@ -500,7 +500,7 @@ fn test_full_example_with_serde() -> firestore_structured_query::Result<()> {
                 before: true,
             }),
             offset: 0_i32,
-            limit: None
+            limit: None,
             find_nearest: None,
         }
     );
