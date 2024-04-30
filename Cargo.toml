@@ -10,7 +10,7 @@ license = "MIT OR Apache-2.0"
 repository = "https://github.com/bouzuya/firestore-structured-query"
 
 [dependencies]
-google-api-proto = { version = "1.557", features = ["google-firestore-v1"] }
+google-api-proto = { version = "1.614", features = ["google-firestore-v1"] }
 serde = { version = "1", features = ["derive"], optional = true }
 serde-firestore-value = { version = "0.7.0", optional = true }
 
