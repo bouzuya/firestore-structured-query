@@ -237,9 +237,9 @@ checksum = "40ecd4077b5ae9fd2e9e169b102c6c330d0605168eb0e8bf79952b256dbefffd"
 
 [[package]]
 name = "google-api-proto"
-version = "1.659.0"
+version = "1.666.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b56fd48ad0cd35fe272f3aa54e5a70e37ad530f36c8fe992984a9975abb5ea1e"
+checksum = "75e1020fe604afa7206f4733b82276c380e774ee946612c2621e14e4480967f8"
 dependencies = [
  "prost",
  "prost-types",
@@ -313,9 +313,9 @@ checksum = "df3b46402a9d5adb4c86a0cf463f42e19994e3ee891101b1841f30a545cb49a9"
 
 [[package]]
 name = "hyper"
-version = "0.14.28"
+version = "0.14.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bf96e135eb83a2a8ddf766e426a841d8ddd7449d5f00d34ea02b41d2f19eef80"
+checksum = "f361cde2f109281a220d4307746cdfd5ee3f410da58a70377762396775634b33"
 dependencies = [
  "bytes",
  "futures-channel",
@@ -487,9 +487,9 @@ checksum = "5b40af805b3121feab8a3c29f04d8ad262fa8e0561883e7653e024ae4479e6de"
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.84"
+version = "1.0.85"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ec96c6a92621310b51366f1e28d05ef11489516e93be030060e5fc12024a49d6"
+checksum = "22244ce15aa966053a896d1accb3a6e68469b97c7f33f284b99f0d576879fc23"
 dependencies = [
  "unicode-ident",
 ]
@@ -588,9 +588,9 @@ dependencies = [
 
 [[package]]
 name = "serde-firestore-value"
-version = "0.7.11"
+version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "71fffad2402d5a0cf8fe71e3491bc648e5c09714b68bca2918ac7ac17438c304"
+checksum = "aea8e063fda836cb6b011a7637ea3a85ca7dcc5538fa0d073a64b2beb7cc50bf"
 dependencies = [
  "google-api-proto",
  "prost",
