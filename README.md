@@ -11,7 +11,7 @@ A Firestore StructuredQuery builder.
 
 ```rust
 use firestore_structured_query::{FieldPath, Filter, Query};
-use google_api_proto::google::firestore::v1::{
+use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
     structured_query, value::ValueType, ArrayValue, Cursor, StructuredQuery, Value,
 };
 
@@ -115,16 +115,6 @@ let _ = StructuredQuery::from(
         .limit(2_i32),
 );
 ```
-
-## Version matrices
-
-| firestore-structured-query | [google-api-proto]  | tonic     |
-|----------------------------|---------------------|-----------|
-| <0.7.0                     | (unknown)           | (unknown) |
-| >=0.7.0, <0.9.0            | >=1.516.0, <1.557.0 | 0.11.x    |
-| >=0.9.0                    | >=1.557.0           | 0.11.x    |
-
-[google-api-proto]: https://github.com/mechiru/google-api-proto
 
 ## TODOs
 

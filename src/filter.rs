@@ -1,7 +1,9 @@
 use crate::field_path::FieldPath;
 use crate::{error::Result, IntoValue};
 
-use google_api_proto::google::firestore::v1::structured_query::{self, field_filter, unary_filter};
+use googleapis_tonic_google_firestore_v1::google::firestore::v1::structured_query::{
+    self, field_filter, unary_filter,
+};
 
 /// A Firestore query filter.
 ///
@@ -12,7 +14,7 @@ use google_api_proto::google::firestore::v1::structured_query::{self, field_filt
 /// ```rust
 /// # fn example_filter() -> firestore_structured_query::Result<()> {
 /// use firestore_structured_query::{FieldPath, Filter};
-/// use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+/// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, value::ValueType, Value};
 /// let filter1: Filter = FieldPath::raw("field1").less_than(Value {
 ///     value_type: Some(ValueType::IntegerValue(1)),
 /// })?;
@@ -66,7 +68,7 @@ impl Filter {
     /// ```rust
     /// # fn test_filter_and() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, Filter};
-    /// use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, value::ValueType, Value};
     /// let filter1 = FieldPath::raw("field1").less_than(Value {
     ///     value_type: Some(ValueType::IntegerValue(1)),
     /// })?;
@@ -115,7 +117,7 @@ impl Filter {
     /// ```rust
     /// # fn test_filter_or() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, Filter};
-    /// use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, value::ValueType, Value};
     /// let filter1 = FieldPath::raw("field1").less_than(Value {
     ///     value_type: Some(ValueType::IntegerValue(1)),
     /// })?;

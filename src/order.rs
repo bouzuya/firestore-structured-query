@@ -1,4 +1,4 @@
-use google_api_proto::google::firestore::v1::structured_query;
+use googleapis_tonic_google_firestore_v1::google::firestore::v1::structured_query;
 
 use crate::FieldPath;
 
@@ -9,7 +9,7 @@ use crate::FieldPath;
 /// ```rust
 /// # fn example_order() -> firestore_structured_query::Result<()> {
 /// use firestore_structured_query::{FieldPath, Order};
-/// use google_api_proto::google::firestore::v1::structured_query;
+/// use googleapis_tonic_google_firestore_v1::google::firestore::v1::structured_query;
 /// let order1: Order = FieldPath::raw("field1").ascending();
 /// let order2: Order = FieldPath::raw("field2").descending();
 /// assert_eq!(

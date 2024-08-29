@@ -1,4 +1,6 @@
-use google_api_proto::google::firestore::v1::{structured_query, Cursor, StructuredQuery};
+use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
+    structured_query, Cursor, StructuredQuery,
+};
 
 /// A Firestore query.
 ///
@@ -9,7 +11,7 @@ use google_api_proto::google::firestore::v1::{structured_query, Cursor, Structur
 /// ```rust
 /// # fn example_mod_doc() -> firestore_structured_query::Result<()> {
 /// use firestore_structured_query::{FieldPath, Filter, Query};
-/// use google_api_proto::google::firestore::v1::{
+/// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
 ///     structured_query, value::ValueType, ArrayValue, Cursor, StructuredQuery, Value,
 /// };
 ///
@@ -79,7 +81,7 @@ impl Query {
     /// ```rust
     /// # fn test_query_collection() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::Query;
-    /// use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, StructuredQuery};
     /// let query1 = Query::collection("collection_id1");
     /// assert_eq!(
     ///     StructuredQuery::from(query1),
@@ -132,7 +134,7 @@ impl Query {
     /// ```rust
     /// # fn test_query_collection_group() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::Query;
-    /// use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, StructuredQuery};
     /// let query1 = Query::collection_group("collection_id1");
     /// assert_eq!(
     ///     StructuredQuery::from(query1),
@@ -184,7 +186,7 @@ impl Query {
     /// ```rust
     /// # fn test_query_end_at() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::Query;
-    /// use google_api_proto::google::firestore::v1::{
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
     ///     structured_query, value::ValueType, Cursor, StructuredQuery, Value,
     /// };
     /// let query1 = Query::collection_group("collection_id1").end_at([
@@ -227,7 +229,7 @@ impl Query {
     /// ```
     pub fn end_at<I>(mut self, values: I) -> Self
     where
-        I: IntoIterator<Item = google_api_proto::google::firestore::v1::Value>,
+        I: IntoIterator<Item = googleapis_tonic_google_firestore_v1::google::firestore::v1::Value>,
     {
         self.0.end_at = Some(Cursor {
             values: values.into_iter().collect(),
@@ -246,7 +248,7 @@ impl Query {
     /// ```rust
     /// # fn test_query_end_before() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::Query;
-    /// use google_api_proto::google::firestore::v1::{
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
     ///     structured_query, value::ValueType, Cursor, StructuredQuery, Value,
     /// };
     /// let query1 = Query::collection_group("collection_id1").end_before([
@@ -289,7 +291,7 @@ impl Query {
     /// ```
     pub fn end_before<I>(mut self, values: I) -> Self
     where
-        I: IntoIterator<Item = google_api_proto::google::firestore::v1::Value>,
+        I: IntoIterator<Item = googleapis_tonic_google_firestore_v1::google::firestore::v1::Value>,
     {
         self.0.end_at = Some(Cursor {
             values: values.into_iter().collect(),
@@ -307,7 +309,7 @@ impl Query {
     /// ```rust
     /// # fn test_query_limit() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::Query;
-    /// use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, StructuredQuery};
     /// let query1 = Query::collection_group("collection_id1").limit(1_i32);
     /// assert_eq!(
     ///     StructuredQuery::from(query1),
@@ -343,7 +345,7 @@ impl Query {
     /// ```rust
     /// # fn test_query_offset() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::Query;
-    /// use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, StructuredQuery};
     /// let query1 = Query::collection_group("collection_id1").offset(1_i32);
     /// assert_eq!(
     ///     StructuredQuery::from(query1),
@@ -379,7 +381,7 @@ impl Query {
     /// ```rust
     /// # fn test_query_order_by() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, Query};
-    /// use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, StructuredQuery};
     /// let query1 = Query::collection_group("collection_id1").order_by([
     ///     FieldPath::raw("field1").ascending(),
     ///     FieldPath::raw("field2").descending(),
@@ -457,7 +459,7 @@ impl Query {
     /// ```rust
     /// # fn test_query_select() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, Query};
-    /// use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, StructuredQuery};
     /// let query1 = Query::collection_group("collection_id1")
     ///     .select([FieldPath::raw("field1"), FieldPath::raw("field2")]);
     /// assert_eq!(
@@ -509,7 +511,7 @@ impl Query {
     /// ```rust
     /// # fn test_query_start_after() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::Query;
-    /// use google_api_proto::google::firestore::v1::{
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
     ///     structured_query, value::ValueType, Cursor, StructuredQuery, Value,
     /// };
     /// let query1 = Query::collection_group("collection_id1").start_after([
@@ -552,7 +554,7 @@ impl Query {
     /// ```
     pub fn start_after<I>(mut self, values: I) -> Self
     where
-        I: IntoIterator<Item = google_api_proto::google::firestore::v1::Value>,
+        I: IntoIterator<Item = googleapis_tonic_google_firestore_v1::google::firestore::v1::Value>,
     {
         self.0.start_at = Some(Cursor {
             values: values.into_iter().collect(),
@@ -570,7 +572,7 @@ impl Query {
     /// ```rust
     /// # fn test_query_start_at() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::Query;
-    /// use google_api_proto::google::firestore::v1::{
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
     ///     structured_query, value::ValueType, Cursor, StructuredQuery, Value,
     /// };
     /// let query1 = Query::collection_group("collection_id1").start_at([
@@ -613,7 +615,7 @@ impl Query {
     /// ```
     pub fn start_at<I>(mut self, values: I) -> Self
     where
-        I: IntoIterator<Item = google_api_proto::google::firestore::v1::Value>,
+        I: IntoIterator<Item = googleapis_tonic_google_firestore_v1::google::firestore::v1::Value>,
     {
         self.0.start_at = Some(Cursor {
             values: values.into_iter().collect(),
@@ -631,7 +633,7 @@ impl Query {
     /// ```rust
     /// # fn test_query_where() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, Query};
-    /// use google_api_proto::google::firestore::v1::{structured_query, StructuredQuery};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, StructuredQuery};
     /// let query1 =
     ///     Query::collection_group("collection_id1").r#where(FieldPath::raw("field1").is_nan()?);
     /// assert_eq!(

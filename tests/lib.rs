@@ -2,7 +2,7 @@
 #[test]
 fn test_full_example_with_serde() -> firestore_structured_query::Result<()> {
     use firestore_structured_query::{to_value, FieldPath, Filter, Query};
-    use google_api_proto::google::firestore::v1::{
+    use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
         structured_query, value::ValueType, ArrayValue, Cursor, StructuredQuery, Value,
     };
 
@@ -511,7 +511,7 @@ fn test_full_example_with_serde() -> firestore_structured_query::Result<()> {
 #[test]
 fn test_full_example() -> firestore_structured_query::Result<()> {
     use firestore_structured_query::{FieldPath, Filter, Query};
-    use google_api_proto::google::firestore::v1::{
+    use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
         structured_query, value::ValueType, ArrayValue, Cursor, StructuredQuery, Value,
     };
 

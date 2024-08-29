@@ -1,4 +1,6 @@
-use google_api_proto::google::firestore::v1::structured_query::{self, field_filter, unary_filter};
+use googleapis_tonic_google_firestore_v1::google::firestore::v1::structured_query::{
+    self, field_filter, unary_filter,
+};
 
 use crate::error::Result;
 use crate::{Filter, IntoValue, Order};
@@ -21,7 +23,7 @@ use crate::{Filter, IntoValue, Order};
 ///
 /// ```rust
 /// use firestore_structured_query::FieldPath;
-/// use google_api_proto::google::firestore::v1::structured_query;
+/// use googleapis_tonic_google_firestore_v1::google::firestore::v1::structured_query;
 ///
 /// let field_path1 = FieldPath::raw("field1");
 /// assert_eq!(
@@ -47,7 +49,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_new() {
     /// use firestore_structured_query::FieldPath;
-    /// use google_api_proto::google::firestore::v1::structured_query;
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::structured_query;
     ///
     /// // simple field name
     /// let field_path1 = FieldPath::new(["field1"]);
@@ -107,7 +109,7 @@ impl FieldPath {
     ///
     /// ```rust
     /// use firestore_structured_query::FieldPath;
-    /// use google_api_proto::google::firestore::v1::structured_query;
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::structured_query;
     ///
     /// let field_path1 = FieldPath::raw("field1");
     /// assert_eq!(
@@ -138,7 +140,7 @@ impl FieldPath {
     /// # #[test]
     /// # fn test_field_path_array_contains() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, IntoValue, Result};
-    /// use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, value::ValueType, Value};
     /// struct S(i64);
     /// impl IntoValue for S {
     ///     fn into_value(self) -> Result<Value> {
@@ -186,7 +188,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_array_contains_any() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, IntoValue, Result};
-    /// use google_api_proto::google::firestore::v1::{
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
     ///     structured_query, value::ValueType, ArrayValue, Value,
     /// };
     /// struct S(Vec<i64>);
@@ -256,7 +258,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_equal() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, IntoValue, Result};
-    /// use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, value::ValueType, Value};
     /// struct S(i64);
     /// impl IntoValue for S {
     ///     fn into_value(self) -> Result<Value> {
@@ -304,7 +306,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_greater_than() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, IntoValue, Result};
-    /// use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, value::ValueType, Value};
     /// struct S(i64);
     /// impl IntoValue for S {
     ///     fn into_value(self) -> Result<Value> {
@@ -352,7 +354,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_greater_than_or_equal() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, IntoValue, Result};
-    /// use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, value::ValueType, Value};
     /// struct S(i64);
     /// impl IntoValue for S {
     ///     fn into_value(self) -> Result<Value> {
@@ -404,7 +406,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_in() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, IntoValue, Result};
-    /// use google_api_proto::google::firestore::v1::{
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
     ///     structured_query, value::ValueType, ArrayValue, Value,
     /// };
     /// struct S(Vec<i64>);
@@ -470,7 +472,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_is_nan() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::FieldPath;
-    /// use google_api_proto::google::firestore::v1::structured_query;
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::structured_query;
     /// let filter1 = FieldPath::raw("field11").is_nan()?;
     /// assert_eq!(
     ///     structured_query::Filter::from(filter1),
@@ -504,7 +506,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_is_not_nan() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::FieldPath;
-    /// use google_api_proto::google::firestore::v1::structured_query;
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::structured_query;
     /// let filter1 = FieldPath::raw("field12").is_not_nan()?;
     /// assert_eq!(
     ///     structured_query::Filter::from(filter1),
@@ -538,7 +540,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_is_not_null() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::FieldPath;
-    /// use google_api_proto::google::firestore::v1::structured_query;
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::structured_query;
     /// let filter1 = FieldPath::raw("field13").is_not_null()?;
     /// assert_eq!(
     ///     structured_query::Filter::from(filter1),
@@ -572,7 +574,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_is_null() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::FieldPath;
-    /// use google_api_proto::google::firestore::v1::structured_query;
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::structured_query;
     /// let filter1 = FieldPath::raw("field14").is_null()?;
     /// assert_eq!(
     ///     structured_query::Filter::from(filter1),
@@ -606,7 +608,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_less_than() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, IntoValue, Result};
-    /// use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, value::ValueType, Value};
     /// struct S(i64);
     /// impl IntoValue for S {
     ///     fn into_value(self) -> Result<Value> {
@@ -654,7 +656,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_less_than_or_equal() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, IntoValue, Result};
-    /// use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, value::ValueType, Value};
     /// struct S(i64);
     /// impl IntoValue for S {
     ///     fn into_value(self) -> Result<Value> {
@@ -702,7 +704,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_not_equal() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, IntoValue, Result};
-    /// use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{structured_query, value::ValueType, Value};
     /// struct S(i64);
     /// impl IntoValue for S {
     ///     fn into_value(self) -> Result<Value> {
@@ -750,7 +752,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_not_in() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, IntoValue, Result};
-    /// use google_api_proto::google::firestore::v1::{
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
     ///     structured_query, value::ValueType, ArrayValue, Value,
     /// };
     /// struct S(Vec<i64>);
@@ -819,7 +821,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_ascending() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, Order};
-    /// use google_api_proto::google::firestore::v1::structured_query;
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::structured_query;
     /// let order: Order = FieldPath::raw("field1").ascending();
     /// assert_eq!(
     ///     structured_query::Order::from(order),
@@ -847,7 +849,7 @@ impl FieldPath {
     /// ```rust
     /// # fn test_field_path_descending() -> firestore_structured_query::Result<()> {
     /// use firestore_structured_query::{FieldPath, Order};
-    /// use google_api_proto::google::firestore::v1::structured_query;
+    /// use googleapis_tonic_google_firestore_v1::google::firestore::v1::structured_query;
     /// let order: Order = FieldPath::raw("field1").descending();
     /// assert_eq!(
     ///     structured_query::Order::from(order),

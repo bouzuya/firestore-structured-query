@@ -276,96 +276,100 @@
 //     Ok(())
 // }
 
-#[test]
-fn test_field_path_raw() {
-    // Added: FieldPath::raw
-    use firestore_structured_query::FieldPath;
-    let field_path1 = FieldPath::raw("field1");
-    let field_path2 = FieldPath::raw("field1".to_string());
-    assert_eq!(field_path1, field_path2);
-}
+// Deprecated: Replace google-api-proto with googleapis-tonic-google-firestore-v1.
+// #[test]
+// fn test_field_path_raw() {
+//     // Added: FieldPath::raw
+//     use firestore_structured_query::FieldPath;
+//     let field_path1 = FieldPath::raw("field1");
+//     let field_path2 = FieldPath::raw("field1".to_string());
+//     assert_eq!(field_path1, field_path2);
+// }
 
-#[test]
-fn test_filter_and() -> firestore_structured_query::Result<()> {
-    // Added: Filter::and
-    use firestore_structured_query::{FieldPath, Filter};
-    use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
-    let filter1 = FieldPath::raw("field1").less_than(Value {
-        value_type: Some(ValueType::IntegerValue(1)),
-    })?;
-    let filter2 = FieldPath::raw("field2").less_than_or_equal(Value {
-        value_type: Some(ValueType::IntegerValue(2)),
-    })?;
-    let filter3 = Filter::and([filter1.clone(), filter2.clone()]);
-    assert_eq!(
-        structured_query::Filter::from(filter3),
-        structured_query::Filter {
-            filter_type: Some(structured_query::filter::FilterType::CompositeFilter(
-                structured_query::CompositeFilter {
-                    op: structured_query::composite_filter::Operator::And as i32,
-                    filters: vec![
-                        structured_query::Filter::from(filter1),
-                        structured_query::Filter::from(filter2)
-                    ],
-                },
-            )),
-        }
-    );
-    Ok(())
-}
+// Deprecated: Replace google-api-proto with googleapis-tonic-google-firestore-v1.
+// #[test]
+// fn test_filter_and() -> firestore_structured_query::Result<()> {
+//     // Added: Filter::and
+//     use firestore_structured_query::{FieldPath, Filter};
+//     use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+//     let filter1 = FieldPath::raw("field1").less_than(Value {
+//         value_type: Some(ValueType::IntegerValue(1)),
+//     })?;
+//     let filter2 = FieldPath::raw("field2").less_than_or_equal(Value {
+//         value_type: Some(ValueType::IntegerValue(2)),
+//     })?;
+//     let filter3 = Filter::and([filter1.clone(), filter2.clone()]);
+//     assert_eq!(
+//         structured_query::Filter::from(filter3),
+//         structured_query::Filter {
+//             filter_type: Some(structured_query::filter::FilterType::CompositeFilter(
+//                 structured_query::CompositeFilter {
+//                     op: structured_query::composite_filter::Operator::And as i32,
+//                     filters: vec![
+//                         structured_query::Filter::from(filter1),
+//                         structured_query::Filter::from(filter2)
+//                     ],
+//                 },
+//             )),
+//         }
+//     );
+//     Ok(())
+// }
 
-#[test]
-fn test_filter_or() -> firestore_structured_query::Result<()> {
-    // Added: Filter::or
-    use firestore_structured_query::{FieldPath, Filter};
-    use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
-    let filter1 = FieldPath::raw("field1").less_than(Value {
-        value_type: Some(ValueType::IntegerValue(1)),
-    })?;
-    let filter2 = FieldPath::raw("field2").less_than_or_equal(Value {
-        value_type: Some(ValueType::IntegerValue(2)),
-    })?;
-    let filter3 = Filter::or([filter1.clone(), filter2.clone()]);
-    assert_eq!(
-        structured_query::Filter::from(filter3),
-        structured_query::Filter {
-            filter_type: Some(structured_query::filter::FilterType::CompositeFilter(
-                structured_query::CompositeFilter {
-                    op: structured_query::composite_filter::Operator::Or as i32,
-                    filters: vec![
-                        structured_query::Filter::from(filter1),
-                        structured_query::Filter::from(filter2)
-                    ],
-                },
-            )),
-        }
-    );
-    Ok(())
-}
+// Deprecated: Replace google-api-proto with googleapis-tonic-google-firestore-v1.
+// #[test]
+// fn test_filter_or() -> firestore_structured_query::Result<()> {
+//     // Added: Filter::or
+//     use firestore_structured_query::{FieldPath, Filter};
+//     use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+//     let filter1 = FieldPath::raw("field1").less_than(Value {
+//         value_type: Some(ValueType::IntegerValue(1)),
+//     })?;
+//     let filter2 = FieldPath::raw("field2").less_than_or_equal(Value {
+//         value_type: Some(ValueType::IntegerValue(2)),
+//     })?;
+//     let filter3 = Filter::or([filter1.clone(), filter2.clone()]);
+//     assert_eq!(
+//         structured_query::Filter::from(filter3),
+//         structured_query::Filter {
+//             filter_type: Some(structured_query::filter::FilterType::CompositeFilter(
+//                 structured_query::CompositeFilter {
+//                     op: structured_query::composite_filter::Operator::Or as i32,
+//                     filters: vec![
+//                         structured_query::Filter::from(filter1),
+//                         structured_query::Filter::from(filter2)
+//                     ],
+//                 },
+//             )),
+//         }
+//     );
+//     Ok(())
+// }
 
-#[test]
-fn test_impl_from_filter_for_structured_query_filter() -> firestore_structured_query::Result<()> {
-    // Added: impl From<Filter> for structured_query::Filter
-    use firestore_structured_query::FieldPath;
-    use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
-    let filter1 = structured_query::Filter::from(FieldPath::raw("field1").less_than(Value {
-        value_type: Some(ValueType::IntegerValue(1)),
-    })?);
-    assert_eq!(
-        filter1,
-        structured_query::Filter {
-            filter_type: Some(structured_query::filter::FilterType::FieldFilter(
-                structured_query::FieldFilter {
-                    field: Some(structured_query::FieldReference {
-                        field_path: "field1".to_string()
-                    }),
-                    op: structured_query::field_filter::Operator::LessThan as i32,
-                    value: Some(Value {
-                        value_type: Some(ValueType::IntegerValue(1))
-                    })
-                },
-            )),
-        }
-    );
-    Ok(())
-}
+// Deprecated: Replace google-api-proto with googleapis-tonic-google-firestore-v1.
+// #[test]
+// fn test_impl_from_filter_for_structured_query_filter() -> firestore_structured_query::Result<()> {
+//     // Added: impl From<Filter> for structured_query::Filter
+//     use firestore_structured_query::FieldPath;
+//     use google_api_proto::google::firestore::v1::{structured_query, value::ValueType, Value};
+//     let filter1 = structured_query::Filter::from(FieldPath::raw("field1").less_than(Value {
+//         value_type: Some(ValueType::IntegerValue(1)),
+//     })?);
+//     assert_eq!(
+//         filter1,
+//         structured_query::Filter {
+//             filter_type: Some(structured_query::filter::FilterType::FieldFilter(
+//                 structured_query::FieldFilter {
+//                     field: Some(structured_query::FieldReference {
+//                         field_path: "field1".to_string()
+//                     }),
+//                     op: structured_query::field_filter::Operator::LessThan as i32,
+//                     value: Some(Value {
+//                         value_type: Some(ValueType::IntegerValue(1))
+//                     })
+//                 },
+//             )),
+//         }
+//     );
+//     Ok(())
+// }
