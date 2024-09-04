@@ -29,3 +29,7 @@ jobs:
       - run: cargo test --no-default-features --features bytes,btree-map
       - run: cargo test --no-default-features --features vec-u8,hash-map
       - run: cargo test --no-default-features --features bytes,btree-map
+      - run: cargo test --no-default-features --features vec-u8,hash-map,serde
+      - run: cargo test --no-default-features --features bytes,btree-map,serde
+      - run: cargo test --no-default-features --features vec-u8,hash-map,serde
+      - run: cargo test --no-default-features --features bytes,btree-map,serde
