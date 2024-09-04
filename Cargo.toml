@@ -12,15 +12,15 @@ repository = "https://github.com/bouzuya/firestore-structured-query"
 [dependencies]
 googleapis-tonic-google-firestore-v1 = { version = "0.7.0", default-features = false }
 serde = { version = "1", features = ["derive"], optional = true }
-serde-firestore-value = { version = "0.8.0", optional = true }
+serde-firestore-value = { version = "0.10.0", default-features = false, optional = true }
 
 [features]
 default = ["vec-u8", "hash-map"]
-btree-map = ["googleapis-tonic-google-firestore-v1/btree-map"]
-bytes = ["googleapis-tonic-google-firestore-v1/bytes"]
-hash-map = ["googleapis-tonic-google-firestore-v1/hash-map"]
+btree-map = ["googleapis-tonic-google-firestore-v1/btree-map", "serde-firestore-value/btree-map"]
+bytes = ["googleapis-tonic-google-firestore-v1/bytes", "serde-firestore-value/bytes"]
+hash-map = ["googleapis-tonic-google-firestore-v1/hash-map", "serde-firestore-value/hash-map"]
 serde = ["dep:serde", "dep:serde-firestore-value"]
-vec-u8 = ["googleapis-tonic-google-firestore-v1/vec-u8"]
+vec-u8 = ["googleapis-tonic-google-firestore-v1/vec-u8", "serde-firestore-value/vec-u8"]
 
 [lints.rust]
 missing_docs = "deny"
