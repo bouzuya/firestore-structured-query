@@ -120,9 +120,9 @@ checksum = "07e28edb80900c19c28f1072f2e8aeca7fa06b23cd4169cefe1af5aa3260783f"
 
 [[package]]
 name = "googleapis-tonic-google-api"
-version = "0.9.0"
+version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "afc43693b86cce6e0531bfa94c93d8c36ffde90cce939d87c55545238a6a9d64"
+checksum = "4c52e786a776f3400b69946dc5b854e33a9cfdac29301c171fba9c84234cf56b"
 dependencies = [
  "prost",
  "prost-types",
@@ -131,9 +131,9 @@ dependencies = [
 
 [[package]]
 name = "googleapis-tonic-google-firestore-v1"
-version = "0.9.0"
+version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fa9b18283459577f15f86dda4820b63072a8ee557eb66f842e07677530d2ab40"
+checksum = "3ed991801dd15dc87292b9a3530e0c524b3fb2505662484554f186e6f9791975"
 dependencies = [
  "googleapis-tonic-google-api",
  "googleapis-tonic-google-rpc",
@@ -355,9 +355,9 @@ dependencies = [
 
 [[package]]
 name = "serde-firestore-value"
-version = "0.12.3"
+version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6401ee1666d40f9eec375446a7594f1f3bd0cd2be2f98ded73dcc04b1bb7c836"
+checksum = "9a4c60e5eeb23e39a2ea3c9181fa54027f52b23bf9db15e83c44954ad3584fb7"
 dependencies = [
  "googleapis-tonic-google-firestore-v1",
  "prost",
@@ -390,18 +390,18 @@ dependencies = [
 
 [[package]]
 name = "thiserror"
-version = "1.0.69"
+version = "2.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b6aaf5339b578ea85b50e080feb250a3e8ae8cfcdff9a461c9ec2904bc923f52"
+checksum = "c006c85c7651b3cf2ada4584faa36773bd07bac24acfb39f3c431b36d7e667aa"
 dependencies = [
  "thiserror-impl",
 ]
 
 [[package]]
 name = "thiserror-impl"
-version = "1.0.69"
+version = "2.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4fee6c4efc90059e10f81e6d42c60a18f76588c3d74cb83a0b242a2b6c7504c1"
+checksum = "f077553d607adc1caf65430528a576c757a71ed73944b66ebb58ef2bbd243568"
 dependencies = [
  "proc-macro2",
  "quote",
