@@ -120,9 +120,9 @@ checksum = "07e28edb80900c19c28f1072f2e8aeca7fa06b23cd4169cefe1af5aa3260783f"
 
 [[package]]
 name = "googleapis-tonic-google-api"
-version = "0.10.0"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4c52e786a776f3400b69946dc5b854e33a9cfdac29301c171fba9c84234cf56b"
+checksum = "a91b0d01396e14679ab7e4799d9958cf76299774b3e8fe7078a0e1d0133d5983"
 dependencies = [
  "prost",
  "prost-types",
@@ -131,9 +131,9 @@ dependencies = [
 
 [[package]]
 name = "googleapis-tonic-google-firestore-v1"
-version = "0.10.0"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3ed991801dd15dc87292b9a3530e0c524b3fb2505662484554f186e6f9791975"
+checksum = "432eae7dec9796aa82931dabb2f347f41dcd3cb7170e9963a1abf09156e5ade6"
 dependencies = [
  "googleapis-tonic-google-api",
  "googleapis-tonic-google-rpc",
@@ -346,18 +346,18 @@ checksum = "719b953e2095829ee67db738b3bfa9fa368c94900df327b3f07fe6e794d2fe1f"
 
 [[package]]
 name = "serde"
-version = "1.0.214"
+version = "1.0.215"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f55c3193aca71c12ad7890f1785d2b73e1b9f63a0bbc353c08ef26fe03fc56b5"
+checksum = "6513c1ad0b11a9376da888e3e0baa0077f1aed55c17f50e7b2397136129fb88f"
 dependencies = [
  "serde_derive",
 ]
 
 [[package]]
 name = "serde-firestore-value"
-version = "0.13.0"
+version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9a4c60e5eeb23e39a2ea3c9181fa54027f52b23bf9db15e83c44954ad3584fb7"
+checksum = "66ad8b411d17b2aa20d374e11b68301a69e9d183acf3f93a5a0fde7e13279643"
 dependencies = [
  "googleapis-tonic-google-firestore-v1",
  "prost",
@@ -368,9 +368,9 @@ dependencies = [
 
 [[package]]
 name = "serde_derive"
-version = "1.0.214"
+version = "1.0.215"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "de523f781f095e28fa605cdce0f8307e451cc0fd14e2eb4cd2e98a355b147766"
+checksum = "ad1e866f866923f252f05c889987993144fb74e722403468a4ebd70c3cd756c0"
 dependencies = [
  "proc-macro2",
  "quote",
