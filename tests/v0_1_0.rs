@@ -1,3 +1,5 @@
+#![allow(missing_docs)]
+
 // Deprecated: Removed FieldPathFilterExt in v0.6.0.
 // #[test]
 // fn test_field_path_filter_ext_array_contains() -> firestore_structured_query::Result<()> {

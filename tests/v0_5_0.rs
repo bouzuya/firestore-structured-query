@@ -1,3 +1,5 @@
+#![allow(missing_docs)]
+
 // Deprected: Error variant changed in v0.6.0
 // #[test]
 // fn test_error() -> firestore_structured_query::Result<()> {

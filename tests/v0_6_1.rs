@@ -1,3 +1,5 @@
+#![allow(missing_docs)]
+
 #[test]
 fn test_impl_x_for_order() {
     // Added: impl Clone for Order

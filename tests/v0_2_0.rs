@@ -1,3 +1,5 @@
+#![allow(missing_docs)]
+
 // Deprected: Removed FieldPathOrderExt in v0.6.0
 // #[test]
 // fn test_field_path_filter_ext_ascending() -> firestore_structured_query::Result<()> {

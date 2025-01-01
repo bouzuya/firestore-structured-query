@@ -1,3 +1,5 @@
+#![allow(missing_docs)]
+
 #[cfg(feature = "serde")]
 #[test]
 fn test_full_example_with_serde() -> firestore_structured_query::Result<()> {

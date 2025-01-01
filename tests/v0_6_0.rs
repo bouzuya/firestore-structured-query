@@ -1,3 +1,5 @@
+#![allow(missing_docs)]
+
 // Deprecated: Replace google-api-proto with googleapis-tonic-google-firestore-v1.
 // use google_api_proto::google::firestore::v1::structured_query;
 

@@ -1,3 +1,5 @@
+#![allow(missing_docs)]
+
 // Deprecated: Replace google-api-proto with googleapis-tonic-google-firestore-v1.
 // #[test]
 // fn test_impl_from_field_path_for_field_reference() -> firestore_structured_query::Result<()> {

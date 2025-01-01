@@ -1,3 +1,5 @@
+#![allow(missing_docs)]
+
 // Deprecated: ToValue provides when the `serde` feature is enabled.
 // #[test]
 // fn test_error() -> firestore_structured_query::Result<()> {

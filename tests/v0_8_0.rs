@@ -1,3 +1,5 @@
+#![allow(missing_docs)]
+
 // Fixed: version: 0.8.2
 // #[test]
 // fn test_field_path_new() {

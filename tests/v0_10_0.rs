@@ -1,3 +1,5 @@
+#![allow(missing_docs)]
+
 #[test]
 fn test_field_path_raw() {
     // Added: FieldPath::raw
