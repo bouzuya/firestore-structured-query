@@ -77,7 +77,7 @@ checksum = "60b1af1c220855b6ceac025d3f6ecdd2b7c4894bfe9cd9bda4fbb4bc7c0d4cf0"
 name = "firestore-structured-query"
 version = "0.15.2"
 dependencies = [
- "googleapis-tonic-google-firestore-v1 0.12.0",
+ "googleapis-tonic-google-firestore-v1",
  "serde",
  "serde-firestore-value",
 ]
@@ -131,38 +131,13 @@ dependencies = [
 
 [[package]]
 name = "googleapis-tonic-google-firestore-v1"
-version = "0.12.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e28d1bcb54243462ced36faf72f0be8e94ae6f37f8d334616de0a88a7275ae60"
-dependencies = [
- "googleapis-tonic-google-api",
- "googleapis-tonic-google-rpc 0.8.0",
- "googleapis-tonic-google-type",
- "prost",
- "prost-types",
- "tonic",
-]
-
-[[package]]
-name = "googleapis-tonic-google-firestore-v1"
 version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7b4920982bdec91362832e712dce7bdf5335238c45c8ac5991f6705ebc66fb69"
 dependencies = [
  "googleapis-tonic-google-api",
- "googleapis-tonic-google-rpc 0.9.0",
+ "googleapis-tonic-google-rpc",
  "googleapis-tonic-google-type",
- "prost",
- "prost-types",
- "tonic",
-]
-
-[[package]]
-name = "googleapis-tonic-google-rpc"
-version = "0.8.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "869a257561889a9e019cd20a2c527de7cde424ed5c816dc1fa0a1d332ee6c7a3"
-dependencies = [
  "prost",
  "prost-types",
  "tonic",
@@ -384,7 +359,7 @@ version = "0.14.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ffb7fd9b3d436bc6b9065503f5ece823a9cd42dad978dad8b2b9f2aaa3d1aee8"
 dependencies = [
- "googleapis-tonic-google-firestore-v1 0.13.0",
+ "googleapis-tonic-google-firestore-v1",
  "prost",
  "prost-types",
  "serde",
