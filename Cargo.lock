@@ -57,9 +57,9 @@ checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
 
 [[package]]
 name = "bitflags"
-version = "2.9.3"
+version = "2.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "34efbcccd345379ca2868b2b2c9d3782e9cc58ba87bc7d79d5b53d9c9ae6f25d"
+checksum = "2261d10cca569e4643e526d8dc2e62e433cc8aba21ab764233731f8d369bf394"
 
 [[package]]
 name = "bytes"
@@ -363,9 +363,9 @@ dependencies = [
 
 [[package]]
 name = "serde-firestore-value"
-version = "0.23.0"
+version = "0.23.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "21c44cf0cf95cfe770c65265115200c5b388dcc42dab357f0ea3ab9a4b9a49b2"
+checksum = "f76e09ce8efb8b06f9ce13c051e33a64332a231ab4f69fea6a64e47da6d44049"
 dependencies = [
  "googleapis-tonic-google-firestore-v1",
  "prost",
