@@ -79,6 +79,6 @@ pub use self::field_path::FieldPath;
 pub use self::filter::Filter;
 pub use self::order::Order;
 pub use self::query::Query;
+pub use self::value::IntoValue;
 #[cfg(feature = "serde")]
 pub use self::value::to_value;
-pub use self::value::IntoValue;

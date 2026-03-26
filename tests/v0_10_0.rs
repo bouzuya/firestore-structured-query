@@ -14,7 +14,7 @@ fn test_filter_and() -> firestore_structured_query::Result<()> {
     // Added: Filter::and
     use firestore_structured_query::{FieldPath, Filter};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     let filter1 = FieldPath::raw("field1").less_than(Value {
         value_type: Some(ValueType::IntegerValue(1)),
@@ -45,7 +45,7 @@ fn test_filter_or() -> firestore_structured_query::Result<()> {
     // Added: Filter::or
     use firestore_structured_query::{FieldPath, Filter};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     let filter1 = FieldPath::raw("field1").less_than(Value {
         value_type: Some(ValueType::IntegerValue(1)),
@@ -76,7 +76,7 @@ fn test_impl_from_filter_for_structured_query_filter() -> firestore_structured_q
     // Added: impl From<Filter> for structured_query::Filter
     use firestore_structured_query::FieldPath;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     let filter1 = structured_query::Filter::from(FieldPath::raw("field1").less_than(Value {
         value_type: Some(ValueType::IntegerValue(1)),
@@ -136,7 +136,7 @@ fn test_error() -> firestore_structured_query::Result<()> {
 #[test]
 fn test_error_to_value_variant() -> firestore_structured_query::Result<()> {
     // Added: Error::ToValue when the `serde` feature is enabled.
-    use firestore_structured_query::{to_value, Error};
+    use firestore_structured_query::{Error, to_value};
     let e: Error = to_value(&1_u64).unwrap_err();
     assert_eq!(e.to_string(), "u64 is not supported");
     Ok(())
@@ -147,7 +147,7 @@ fn test_field_path_array_contains() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::array_contains
     use firestore_structured_query::{FieldPath, IntoValue, Result};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     struct S(i64);
     impl IntoValue for S {
@@ -185,7 +185,7 @@ fn test_field_path_array_contains_serialize() -> firestore_structured_query::Res
     // Added: FieldPath::array_contains (for T: Serialize)
     use firestore_structured_query::FieldPath;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     let filter1 = FieldPath::raw("field7").array_contains(&7)?;
     assert_eq!(
@@ -212,7 +212,7 @@ fn test_field_path_array_contains_any() -> firestore_structured_query::Result<()
     // Added: FieldPath::array_contains_any
     use firestore_structured_query::{FieldPath, IntoValue, Result};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, ArrayValue, Value,
+        ArrayValue, Value, structured_query, value::ValueType,
     };
     struct S(Vec<i64>);
     impl IntoValue for S {
@@ -266,7 +266,7 @@ fn test_field_path_array_contains_any_serialize() -> firestore_structured_query:
     // Added: FieldPath::array_contains_any (for T: Serialize)
     use firestore_structured_query::FieldPath;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, ArrayValue, Value,
+        ArrayValue, Value, structured_query, value::ValueType,
     };
     let filter1 = FieldPath::raw("field9").array_contains_any(&[9])?;
     assert_eq!(
@@ -333,7 +333,7 @@ fn test_field_path_equal() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::equal
     use firestore_structured_query::{FieldPath, IntoValue, Result};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     struct S(i64);
     impl IntoValue for S {
@@ -371,7 +371,7 @@ fn test_field_path_equal_serialize() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::equal (for T: Serialize)
     use firestore_structured_query::FieldPath;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     let filter1 = FieldPath::raw("field5").equal(&5)?;
     assert_eq!(
@@ -398,7 +398,7 @@ fn test_field_path_greater_than() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::greater_than
     use firestore_structured_query::{FieldPath, IntoValue, Result};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     struct S(i64);
     impl IntoValue for S {
@@ -436,7 +436,7 @@ fn test_field_path_greater_than_serialize() -> firestore_structured_query::Resul
     // Added: FieldPath::greater_than (for T: Serialize)
     use firestore_structured_query::FieldPath;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     let filter1 = FieldPath::raw("field3").greater_than(&3)?;
     assert_eq!(
@@ -463,7 +463,7 @@ fn test_field_path_greater_than_or_equal() -> firestore_structured_query::Result
     // Added: FieldPath::greater_than_or_equal
     use firestore_structured_query::{FieldPath, IntoValue, Result};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     struct S(i64);
     impl IntoValue for S {
@@ -501,7 +501,7 @@ fn test_field_path_greater_than_or_equal_serialize() -> firestore_structured_que
     // Added: FieldPath::greater_than_or_equal (for T: Serialize)
     use firestore_structured_query::FieldPath;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     let filter1 = FieldPath::raw("field4").greater_than_or_equal(&4)?;
     assert_eq!(
@@ -528,7 +528,7 @@ fn test_field_path_in() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::r#in
     use firestore_structured_query::{FieldPath, IntoValue, Result};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, ArrayValue, Value,
+        ArrayValue, Value, structured_query, value::ValueType,
     };
     struct S(Vec<i64>);
     impl IntoValue for S {
@@ -582,7 +582,7 @@ fn test_field_path_in_serialize() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::r#in (for T: Serialize)
     use firestore_structured_query::FieldPath;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, ArrayValue, Value,
+        ArrayValue, Value, structured_query, value::ValueType,
     };
     let filter1 = FieldPath::raw("field8").r#in(&[8])?;
     assert_eq!(
@@ -709,7 +709,7 @@ fn test_field_path_less_than() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::less_than
     use firestore_structured_query::{FieldPath, IntoValue, Result};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     struct S(i64);
     impl IntoValue for S {
@@ -747,7 +747,7 @@ fn test_field_path_less_than_serialize() -> firestore_structured_query::Result<(
     // Added: FieldPath::less_than (for T: Serialize)
     use firestore_structured_query::FieldPath;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     let filter1 = FieldPath::raw("field1").less_than(&1)?;
     assert_eq!(
@@ -774,7 +774,7 @@ fn test_field_path_less_than_or_equal() -> firestore_structured_query::Result<()
     // Added: FieldPath::less_than_or_equal
     use firestore_structured_query::{FieldPath, IntoValue, Result};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     struct S(i64);
     impl IntoValue for S {
@@ -812,7 +812,7 @@ fn test_field_path_less_than_or_equal_serialize() -> firestore_structured_query:
     // Added: FieldPath::less_than_or_equal (for T: Serialize)
     use firestore_structured_query::FieldPath;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     let filter1 = FieldPath::raw("field2").less_than_or_equal(&2)?;
     assert_eq!(
@@ -839,7 +839,7 @@ fn test_field_path_not_equal() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::not_equal
     use firestore_structured_query::{FieldPath, IntoValue, Result};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     struct S(i64);
     impl IntoValue for S {
@@ -877,7 +877,7 @@ fn test_field_path_not_equal_serialize() -> firestore_structured_query::Result<(
     // Added: FieldPath::not_equal (for T: Serialize)
     use firestore_structured_query::FieldPath;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Value,
+        Value, structured_query, value::ValueType,
     };
     let filter1 = FieldPath::raw("field6").not_equal(&6)?;
     assert_eq!(
@@ -904,7 +904,7 @@ fn test_field_path_not_in() -> firestore_structured_query::Result<()> {
     // Added: FieldPath::not_in
     use firestore_structured_query::{FieldPath, IntoValue, Result};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, ArrayValue, Value,
+        ArrayValue, Value, structured_query, value::ValueType,
     };
     struct S(Vec<i64>);
     impl IntoValue for S {
@@ -958,7 +958,7 @@ fn test_field_path_not_in_serialize() -> firestore_structured_query::Result<()> 
     // Added: FieldPath::not_in (for T: Serialize)
     use firestore_structured_query::FieldPath;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, ArrayValue, Value,
+        ArrayValue, Value, structured_query, value::ValueType,
     };
     let filter1 = FieldPath::raw("field10").not_in(&[10])?;
     assert_eq!(
@@ -989,7 +989,7 @@ fn test_into_value() -> firestore_structured_query::Result<()> {
     // Added: IntoValue
     use firestore_structured_query::{FieldPath, IntoValue, Result};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::structured_query;
-    use googleapis_tonic_google_firestore_v1::google::firestore::v1::{value::ValueType, Value};
+    use googleapis_tonic_google_firestore_v1::google::firestore::v1::{Value, value::ValueType};
     struct S(i64);
     impl IntoValue for S {
         fn into_value(self) -> Result<Value> {
@@ -1051,7 +1051,7 @@ fn test_order() -> firestore_structured_query::Result<()> {
 fn test_to_value() -> firestore_structured_query::Result<()> {
     // Added: ::to_value
     use firestore_structured_query::to_value;
-    use googleapis_tonic_google_firestore_v1::google::firestore::v1::{value::ValueType, Value};
+    use googleapis_tonic_google_firestore_v1::google::firestore::v1::{Value, value::ValueType};
     assert_eq!(
         to_value(&1_i64)?,
         Value {
@@ -1100,7 +1100,7 @@ fn test_query_collection() -> firestore_structured_query::Result<()> {
     // Changed: The output of Query::collection includes StructuredQuery::find_nearest.
     use firestore_structured_query::Query;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, StructuredQuery,
+        StructuredQuery, structured_query,
     };
     let query1 = Query::collection("collection_id1");
     assert_eq!(
@@ -1128,7 +1128,7 @@ fn test_query_collection_group() -> firestore_structured_query::Result<()> {
     // Changed: The output of Query::collection_group includes StructuredQuery::find_nearest.
     use firestore_structured_query::Query;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, StructuredQuery,
+        StructuredQuery, structured_query,
     };
     let query1 = Query::collection_group("collection_id1");
     assert_eq!(
@@ -1156,7 +1156,7 @@ fn test_query_end_at() -> firestore_structured_query::Result<()> {
     // Changed: The output of Query::end_at includes StructuredQuery::find_nearest.
     use firestore_structured_query::Query;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Cursor, StructuredQuery, Value,
+        Cursor, StructuredQuery, Value, structured_query, value::ValueType,
     };
     let query1 = Query::collection_group("collection_id1").end_at([
         Value {
@@ -1201,7 +1201,7 @@ fn test_query_end_before() -> firestore_structured_query::Result<()> {
     // Changed: The output of Query::end_before includes StructuredQuery::find_nearest.
     use firestore_structured_query::Query;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Cursor, StructuredQuery, Value,
+        Cursor, StructuredQuery, Value, structured_query, value::ValueType,
     };
     let query1 = Query::collection_group("collection_id1").end_before([
         Value {
@@ -1246,7 +1246,7 @@ fn test_query_limit() -> firestore_structured_query::Result<()> {
     // Changed: The output of Query::limit includes StructuredQuery::find_nearest.
     use firestore_structured_query::Query;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, StructuredQuery,
+        StructuredQuery, structured_query,
     };
     let query1 = Query::collection_group("collection_id1").limit(1_i32);
     assert_eq!(
@@ -1274,7 +1274,7 @@ fn test_query_offset() -> firestore_structured_query::Result<()> {
     // Changed: The output of Query::offset includes StructuredQuery::find_nearest.
     use firestore_structured_query::Query;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, StructuredQuery,
+        StructuredQuery, structured_query,
     };
     let query1 = Query::collection_group("collection_id1").offset(1_i32);
     assert_eq!(
@@ -1302,7 +1302,7 @@ fn test_query_order_by() -> firestore_structured_query::Result<()> {
     // Changed: The output of Query::order_by includes StructuredQuery::find_nearest.
     use firestore_structured_query::{FieldPath, Query};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, StructuredQuery,
+        StructuredQuery, structured_query,
     };
     let query1 = Query::collection_group("collection_id1").order_by([
         FieldPath::raw("field1").ascending(),
@@ -1368,7 +1368,7 @@ fn test_query_select() -> firestore_structured_query::Result<()> {
     // Changed: The output of Query::select includes StructuredQuery::find_nearest.
     use firestore_structured_query::{FieldPath, Query};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, StructuredQuery,
+        StructuredQuery, structured_query,
     };
     let query1 = Query::collection_group("collection_id1")
         .select([FieldPath::raw("field1"), FieldPath::raw("field2")]);
@@ -1406,7 +1406,7 @@ fn test_query_start_after() -> firestore_structured_query::Result<()> {
     // Changed: The output of Query::start_after includes StructuredQuery::find_nearest.
     use firestore_structured_query::Query;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Cursor, StructuredQuery, Value,
+        Cursor, StructuredQuery, Value, structured_query, value::ValueType,
     };
     let query1 = Query::collection_group("collection_id1").start_after([
         Value {
@@ -1451,7 +1451,7 @@ fn test_query_start_at() -> firestore_structured_query::Result<()> {
     // Changed: The output of Query::start_at includes StructuredQuery::find_nearest.
     use firestore_structured_query::Query;
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, Cursor, StructuredQuery, Value,
+        Cursor, StructuredQuery, Value, structured_query, value::ValueType,
     };
     let query1 = Query::collection_group("collection_id1").start_at([
         Value {
@@ -1496,7 +1496,7 @@ fn test_query_where() -> firestore_structured_query::Result<()> {
     // Changed: The output of Query::r#where includes StructuredQuery::find_nearest.
     use firestore_structured_query::{FieldPath, Query};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, StructuredQuery,
+        StructuredQuery, structured_query,
     };
     let query1 =
         Query::collection_group("collection_id1").r#where(FieldPath::raw("field1").is_nan()?);

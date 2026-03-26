@@ -3,9 +3,9 @@
 #[cfg(feature = "serde")]
 #[test]
 fn test_full_example_with_serde() -> firestore_structured_query::Result<()> {
-    use firestore_structured_query::{to_value, FieldPath, Filter, Query};
+    use firestore_structured_query::{FieldPath, Filter, Query, to_value};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, ArrayValue, Cursor, StructuredQuery, Value,
+        ArrayValue, Cursor, StructuredQuery, Value, structured_query, value::ValueType,
     };
 
     assert_eq!(
@@ -514,7 +514,7 @@ fn test_full_example_with_serde() -> firestore_structured_query::Result<()> {
 fn test_full_example() -> firestore_structured_query::Result<()> {
     use firestore_structured_query::{FieldPath, Filter, Query};
     use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-        structured_query, value::ValueType, ArrayValue, Cursor, StructuredQuery, Value,
+        ArrayValue, Cursor, StructuredQuery, Value, structured_query, value::ValueType,
     };
 
     assert_eq!(

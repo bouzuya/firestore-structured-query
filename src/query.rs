@@ -1,5 +1,5 @@
 use googleapis_tonic_google_firestore_v1::google::firestore::v1::{
-    structured_query, Cursor, StructuredQuery,
+    Cursor, StructuredQuery, structured_query,
 };
 
 /// A Firestore query.

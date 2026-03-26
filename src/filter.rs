@@ -1,5 +1,5 @@
 use crate::field_path::FieldPath;
-use crate::{error::Result, IntoValue};
+use crate::{IntoValue, error::Result};
 
 use googleapis_tonic_google_firestore_v1::google::firestore::v1::structured_query::{
     self, field_filter, unary_filter,
